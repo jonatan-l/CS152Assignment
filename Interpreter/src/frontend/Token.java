@@ -14,7 +14,7 @@ public class Token
     boolean isValidElem(String Atom) //This function will be part of a class
     {
      /*
-    Validates a scanned token by the Scanner class to be a valid Scheme element.
+        Validates a scanned token by the Scanner class to be a valid Scheme element.
      */
         return false;
     }
@@ -28,5 +28,4 @@ public class Token
     }
 
     //class frontend.Token has a toString method which returns a string ONLY if the token is a valid Scheme token.
-
 }
