@@ -11,21 +11,39 @@ public class Token
         attribute = "";
     }
 
-    boolean isValidElem(String Atom) //This function will be part of a class
+    public boolean isValidVar(String currentToken) //This function will be part of a class
     {
-     /*
-        Validates a scanned token by the Scanner class to be a valid Scheme element.
-     */
+
         return false;
     }
 
-    boolean isValidVar(/*Some arguments*/) //This function will be part of a class
+    public boolean isValidUnsignedInt(String currentToken) //Assures all digits are numbers
     {
-     /*
-    Validates a scanned token by the Scanner class to be a valid Scheme variable.
-     */
-        return false;
+        if(currentToken.length() == 0){return false; }
+
+        for(int i = 0; i < currentToken.length(); i++)
+        {
+            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')){ return false; }
+        }
+
+        attribute = "unsigned int";
+        return true;
     }
 
-    //class frontend.Token has a toString method which returns a string ONLY if the token is a valid Scheme token.
+    public boolean isValidNumber(String currentToken) //Assures all digits are number and . is only present once
+    {
+        if(currentToken.length() == 0){return false; }
+
+        boolean foundDotAlready = false;
+
+        for(int i = 0; i < currentToken.length(); i++)
+        {
+            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')||
+                (currentToken.charAt(i) == '.' && foundDotAlready))
+            { return false; }
+            else if(currentToken.charAt(i) == '.'){ i++; foundDotAlready = true; }
+        }
+        attribute = "number";
+        return true;
+    }
 }
