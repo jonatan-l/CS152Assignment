@@ -2,13 +2,13 @@ package frontend;
 
 public class Token
 {
-    private String identifier;
-    private String attribute;
+    private String value;
+    private String type;
 
     public Token()
     {
-        identifier = "";
-        attribute = "";
+        value = "";
+        type = "";
     }
 
     public boolean isValidVar(String currentToken) //This function will be part of a class
@@ -26,7 +26,7 @@ public class Token
             if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')){ return false; }
         }
 
-        attribute = "unsigned int";
+        type = "unsigned int";
         return true;
     }
 
@@ -43,7 +43,7 @@ public class Token
             { return false; }
             else if(currentToken.charAt(i) == '.'){ i++; foundDotAlready = true; }
         }
-        attribute = "number";
+        type = "number";
         return true;
     }
 }
