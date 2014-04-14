@@ -6,11 +6,11 @@ public class Token {
 
 	public Token() {
 		value = "";
-		type = "";
+		type = "";// will be whatever value is classified as
 	}
 
 	public void setValue(String newValue) {
-		name = newName;
+		value = newValue;
 	}
 
 	public void setType(String newType) {
