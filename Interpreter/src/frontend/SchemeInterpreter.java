@@ -18,7 +18,7 @@ public class SchemeInterpreter
     //Check how well this function validates variables!
     public static String isValidVar(String currentToken) throws IllegalArgumentException//This function will be part of a class
     {
-        String validSymbs ="!@#$%^&*()-+=./<>:~";
+        String validSymbs ="!@#$%^&*()-+=./<>:~?";
         for(int i = 0; i < currentToken.length(); i++)
         {
             for(int j = 0; j < validSymbs.length(); j++)
@@ -29,7 +29,7 @@ public class SchemeInterpreter
                                 (currentToken.charAt(i) != validSymbs.charAt(j)))))
                 {
                     throw new IllegalArgumentException("Variables can not start with a number!\n"+
-                    "They can start with !@#$%^&*()-+=./<>:~ or a letter!\n"+
+                    "They can start with !@#$%^&*()-+=./<>:~? or a letter!\n"+
                     "It may be followed by any number,letter or previously shown symbols!");
                 }
             }
