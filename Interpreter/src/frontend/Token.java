@@ -2,51 +2,17 @@ package frontend;//////commit test again
 
 public class Token
 {
-    private String value;
-    private String type;
+    private String name; //The name of symbol
+    private String type; //The type of symbol
 
     public Token()
     {
-        value = "";
+        name = "";
         type = "";
     }
 
-    public boolean isValidVar(String currentToken) //This function will be part of a class
-    {
-
-        return false;
-    }
-
-    public boolean isValidUnsignedInt(String currentToken) //Assures all digits are numbers
-    {
-        if(currentToken.length() == 0){return false; }
-
-        for(int i = 0; i < currentToken.length(); i++)
-        {
-            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')){ return false; }
-        }
-        value = currentToken;
-        type = "unsigned int";
-        return true;
-    }
-
-    public boolean isValidNumber(String currentToken) //Assures all digits are number and . is only present once
-    {
-        if(currentToken.length() == 0){return false; }
-
-        boolean foundDotAlready = false;
-
-        for(int i = 0; i < currentToken.length(); i++)
-        {
-            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9') &&
-                (currentToken.charAt(i) == '.' && foundDotAlready))
-            { return false; }
-            else if(currentToken.charAt(i) == '.'){ foundDotAlready = true; }
-        }
-        value = currentToken;
-        type = "number";
-        return foundDotAlready;
-    }
+    public void setName(String newName){ name = newName; }
+    public void setType(String newType){ type = newType; }
     public String getType(){ return type; }
-    public String getValue(){ return value; }
+    public String getName(){ return name; }
 }
