@@ -27,7 +27,7 @@ public class SchemeInterpreter
         return currentToken;
     }
     //Check how well this function validates variables!
-    public String isValidVar(String currentToken) throws IllegalArgumentException//This function will be part of a class
+    public String isValidVar(String currentToken) /*throws IllegalArgumentException*///This function will be part of a class
     {
         if(currentToken.length() == 0)
         {
@@ -40,7 +40,7 @@ public class SchemeInterpreter
             { //fixing a bug! Its not a big bug, the bug is, a ( is not being let throught. (I know its not allowed,
                 //but to fix a bug, it must be allowed!
                 if(((currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9') &&
-                   (currentToken.charAt(0) != validSymbs.charAt(j))) ||
+                   (currentToken.charAt(0) == validSymbs.charAt(j)))||
                    ((i > 0)&&(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9' ||
                                 currentToken.charAt(i) == validSymbs.charAt(j)||
                                 currentToken.charAt(i) >= 'a' && currentToken.charAt(i) <= 'z' ||
@@ -48,7 +48,7 @@ public class SchemeInterpreter
                 {
                     System.out.println(currentToken.charAt(i)+ " i:" + i + " j:" + j);
                     throw new IllegalArgumentException("Variables can not start with a number!\n"+
-                    "They can start with !@#$%^&*()-+=./<>:~?_ or a letter!\n"+
+                    "It can start with !@#$%^&*()-+=./<>:~?_ or a letter!\n"+
                     "It may be followed by any number,letter or previously shown symbols!");
                 }
             }
@@ -96,6 +96,6 @@ public class SchemeInterpreter
         SchemeInterpreter si = new SchemeInterpreter();
         System.out.println(si.isValidNumber("1232.35536"));
         System.out.println(si.isValidUnsignedInt("123235536"));
-        System.out.println(si.isValidVar("a()&%@(7407_@Q865+bdklskgsl"));
+        System.out.println(si.isValidVar("(bjfksdjgka")); //"a()&%@(7407_@Q865+bdklskgsl"
    }
 }
