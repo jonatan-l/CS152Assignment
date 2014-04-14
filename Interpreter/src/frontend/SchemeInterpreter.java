@@ -15,28 +15,40 @@ package frontend;
 //Testing
 public class SchemeInterpreter
 {
-
-    public static String isValidString(String currentToken) throws IllegalArgumentException
+    public String isReservedWord(String currentToken) throws IllegalArgumentException
+    {
+        //Ensure only reserved words are acceptable
+        return currentToken;
+    }
+    public String isValidString(String currentToken) throws IllegalArgumentException
     {
         //A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
         //Two single quotes are not allowed or one double quote is allowed. No more than 2 double quoted symbols.
         return currentToken;
     }
     //Check how well this function validates variables!
-    public static String isValidVar(String currentToken) throws IllegalArgumentException//This function will be part of a class
+    public String isValidVar(String currentToken) throws IllegalArgumentException//This function will be part of a class
     {
-        String validSymbs ="!@#$%^&*()-+=./<>:~?";
+        if(currentToken.length() == 0)
+        {
+            throw new IllegalArgumentException("Argument can not be Empty!");
+        }
+        String validSymbs ="!@#$%^&*()-+=./<>:~?_";
         for(int i = 0; i < currentToken.length(); i++)
         {
             for(int j = 0; j < validSymbs.length(); j++)
-            {
+            { //fixing a bug! Its not a big bug, the bug is, a ( is not being let throught. (I know its not allowed,
+                //but to fix a bug, it must be allowed!
                 if(((currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9') &&
-                   (currentToken.charAt(0) != validSymbs.charAt(j)))||
-                   ((i > 0)&&(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9') ||
-                                (currentToken.charAt(i) != validSymbs.charAt(j)))))
+                   (currentToken.charAt(0) != validSymbs.charAt(j))) ||
+                   ((i > 0)&&(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9' ||
+                                currentToken.charAt(i) == validSymbs.charAt(j)||
+                                currentToken.charAt(i) >= 'a' && currentToken.charAt(i) <= 'z' ||
+                                currentToken.charAt(i) >= 'A' && currentToken.charAt(i) <= 'Z'))))
                 {
+                    System.out.println(currentToken.charAt(i)+ " i:" + i + " j:" + j);
                     throw new IllegalArgumentException("Variables can not start with a number!\n"+
-                    "They can start with !@#$%^&*()-+=./<>:~? or a letter!\n"+
+                    "They can start with !@#$%^&*()-+=./<>:~?_ or a letter!\n"+
                     "It may be followed by any number,letter or previously shown symbols!");
                 }
             }
@@ -44,11 +56,11 @@ public class SchemeInterpreter
         return currentToken;
     }
     //Check the validity of an unsigned integer, this function works flawlessly!
-    public static String isValidUnsignedInt(String currentToken) throws IllegalArgumentException//Assures all digits are numbers
+    public String isValidUnsignedInt(String currentToken) throws IllegalArgumentException//Assures all digits are numbers
     {
         if(currentToken.length() == 0)
         {
-            throw new IllegalArgumentException("This is not an Unsigned Integer!");
+            throw new IllegalArgumentException("Argument can not be Empty!");
         }
 
         for(int i = 0; i < currentToken.length(); i++)
@@ -60,11 +72,11 @@ public class SchemeInterpreter
         return currentToken; //Returns the unsigned integer if it is a valid unsigned integer
     }
     //Check the validity of a number, this function works flawlessly!
-    public static String isValidNumber(String currentToken) throws IllegalArgumentException//Assures all digits are number and . is only present once
+    public String isValidNumber(String currentToken) throws IllegalArgumentException//Assures all digits are number and . is only present once
     {
         if(currentToken.length() == 0)
         {
-            throw new IllegalArgumentException("This is not a number!");
+            throw new IllegalArgumentException("Argument can not be Empty!");
         }
 
         boolean foundDotAlready = false;
@@ -81,8 +93,9 @@ public class SchemeInterpreter
    }
    public static void main(String[] args)
    {
-        Token tok = new Token();
-        System.out.println(isValidNumber("1232.35536"));
-        System.out.println(isValidUnsignedInt("123235536"));
+        SchemeInterpreter si = new SchemeInterpreter();
+        System.out.println(si.isValidNumber("1232.35536"));
+        System.out.println(si.isValidUnsignedInt("123235536"));
+        System.out.println(si.isValidVar("a()&%@(7407_@Q865+bdklskgsl"));
    }
 }
