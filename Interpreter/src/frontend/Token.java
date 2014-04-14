@@ -25,7 +25,7 @@ public class Token
         {
             if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')){ return false; }
         }
-
+        value = currentToken;
         type = "unsigned int";
         return true;
     }
@@ -43,7 +43,10 @@ public class Token
             { return false; }
             else if(currentToken.charAt(i) == '.'){ i++; foundDotAlready = true; }
         }
+        value = currentToken;
         type = "number";
         return true;
     }
+    public String getType(){ return type; }
+    public String getValue(){ return value; }
 }
