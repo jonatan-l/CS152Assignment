@@ -38,14 +38,14 @@ public class Token
 
         for(int i = 0; i < currentToken.length(); i++)
         {
-            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')||
+            if(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9') &&
                 (currentToken.charAt(i) == '.' && foundDotAlready))
             { return false; }
-            else if(currentToken.charAt(i) == '.'){ i++; foundDotAlready = true; }
+            else if(currentToken.charAt(i) == '.'){ foundDotAlready = true; }
         }
         value = currentToken;
         type = "number";
-        return true;
+        return foundDotAlready;
     }
     public String getType(){ return type; }
     public String getValue(){ return value; }

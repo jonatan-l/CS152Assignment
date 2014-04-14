@@ -17,6 +17,8 @@ public class SchemeInterpreter
 {
    public static void main(String[] args)
    {
-
+        Token tok = new Token();
+        System.out.println(tok.isValidNumber("1232.35536"));
+        System.out.println(tok.isValidUnsignedInt("123235536"));
    }
 }
