@@ -15,6 +15,13 @@ package frontend;
 //Testing
 public class SchemeInterpreter
 {
+
+    public static String isValidString(String currentToken) throws IllegalArgumentException
+    {
+        //A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
+        //Two single quotes are not allowed or one double quote is allowed. No more than 2 double quoted symbols.
+        return currentToken;
+    }
     //Check how well this function validates variables!
     public static String isValidVar(String currentToken) throws IllegalArgumentException//This function will be part of a class
     {
