@@ -6,7 +6,7 @@ public class Token {
 
 	public Token() {
 		value = "";
-		type = "";// will be whatever value is classified as
+		type = "";
 	}
 
 	public void setValue(String newValue) {
