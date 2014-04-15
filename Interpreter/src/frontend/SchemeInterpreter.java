@@ -16,24 +16,23 @@ package frontend;
 public class SchemeInterpreter
 {
     
-    String[] keywords = {"and", "begin", "begin0", "break-var", "case", "cond", "cycle", "define", 
+    private String[] keywords = {"and", "begin", "begin0", "break-var", "case", "cond", "cycle", "define",
 						"delay", "delay-list-cons", "do", "else", "extend-syntax", "for", "freeze",
 						"if", "lambda", "let", "letrec", "let*", "macro", "object-maker", "or",
 						"quote", "repeat", "safe-letrec", "set!", "stream-cons", "variable-case",
 						"while", "wrap"};
 						
 	//Check if the token is one of the keywords.					
-    public boolean isReservedWord(String currentToken) throws IllegalArgumentException
-    {
-        for(int i = 0, keywords.length < i, i++){
-            if(currentToken.equals(keywords[i])){
-                return true;
-            }
-            else{
-                return false;
+    public boolean isReservedWord(String currentToken) throws IllegalArgumentException {
+        boolean isReserved = false; //By default thinks its bad, unless proven otherwise
+        for (int i = 0; keywords.length < i; i++) {
+            if (currentToken.equals(keywords[i]))
+            {
+                isReserved = true;
             }
         }
-        
+        return isReserved;
+    }
     public String isValidString(String currentToken) throws IllegalArgumentException
     {
         //A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
