@@ -29,6 +29,7 @@ public class SchemeInterpreter
             if (currentToken.equals(keywords[i]))
             {
                 isReserved = true;
+                break;
             }
         }
         return isReserved;
