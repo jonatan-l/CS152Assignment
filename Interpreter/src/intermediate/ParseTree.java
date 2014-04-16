@@ -26,7 +26,7 @@ public class ParseTree {
 	
 	public void populate(Pair lst){
 		//need method that gives next item as a token
-		Token item = Parser.getToken();
+		Token item = null;//Parser.getToken();<-------------------------Check THIS OUT! I did this to test my stuff!
 		if(item.getValue().compareTo(")") == 0){
 			return;//base case closing back up
 		}
