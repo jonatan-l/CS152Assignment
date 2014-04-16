@@ -35,8 +35,33 @@ public class SchemeInterpreter
     }
     public String isValidString(String currentToken) throws IllegalArgumentException
     {
-        //A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
+        //I think I nailed it!-> A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
         //Two single quotes are not allowed or one double quote is allowed. No more than 2 double quoted symbols.
+        if(currentToken.isEmpty())
+        {
+            throw new IllegalArgumentException("Argument can not be Empty!");
+        }
+        int numOfDoubleQuotes = -1;
+        int numOfSingleQuotes = -1;
+        boolean isValidString = true;
+
+        if(currentToken.charAt(0) == '\'')
+        {
+            for(int i = 0; i < currentToken.length(); i++)
+            {
+                if((!valSchemeSymbols(currentToken.charAt(i)) &&
+                    !Character.isLetterOrDigit(currentToken.charAt(i)))||
+                   (currentToken.charAt(i) == '\"' &&
+                   (numOfDoubleQuotes > 2 || numOfDoubleQuotes == 1)))
+                {
+                    throw new IllegalArgumentException("More than 2 \" marks are not allowed, ");
+                }
+            }
+        }
+        else if(currentToken.charAt(0) == '\"')
+        {
+
+        }
         return currentToken;
     }
 
@@ -67,7 +92,8 @@ public class SchemeInterpreter
         {
                 if(((currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9') ||
                         !valSchemeSymbols(currentToken.charAt(0)) &&
-                        !Character.isLetterOrDigit(currentToken.charAt(0))) ||
+                        !Character.isLetterOrDigit(currentToken.charAt(0)) ||
+                   (currentToken.charAt(0) == '+' || currentToken.charAt(0) == '-' || currentToken.charAt(0) == '.')) ||
                    ((i > 0) && ((!valSchemeSymbols(currentToken.charAt(i)) &&
                                  !Character.isLetterOrDigit(currentToken.charAt(i)))||
                            (!Character.isLetterOrDigit(currentToken.charAt(i))&&
@@ -79,6 +105,7 @@ public class SchemeInterpreter
                     "It may be followed by any number,letter or previously shown symbols!");
             }
         }
+        //Save the name of a variable here!!!!!
         return currentToken;
     }
 
@@ -123,16 +150,21 @@ public class SchemeInterpreter
         SchemeInterpreter si = new SchemeInterpreter();
         System.out.println(si.isValidNumber("1232.35536"));
         System.out.println(si.isValidUnsignedInt("123235536"));
-        System.out.println(si.isValidVar("kalsdjalfkj95103968103968105891053910asdfa."));
+        System.out.println(si.isValidVar("*fskdgjskgjsk"));
+
         System.out.println(si.isReservedWord("let*"));
         /*
-          "7(bjfksdjgka"
-          "(bjfksdjgka"
-          "a()&%@(7407_@Q865+bdklskgsl"
-          "a&%@7407_@Q865+bdklskgsl"
-          "7bjfk4764749439!@#$%^&*()-+=./<>:~?_sdjgka"
-          "758932854764749439!@#$%^&*()-+=./<>:~?_sdjgka"
-          "kalsdjalfkj95103968103968105891053910asdfa."
+          "7(bjfksdjgka" NO
+          "(bjfksdjgka" YES
+          "a()&%@(7407_@Q865+bdklskgsl" NO
+          "a&%@7407_@Q865+bdklskgsl" YES
+          "7bjfk4764749439!@#$%^&*()-+=./<>:~?_sdjgka" NO
+          "758932854764749439!@#$%^&*()-+=./<>:~?_sdjgka" NO
+          "kalsdjalfkj95103968103968105891053910asdfa." YES
+          "+fskdgjskgjsk" NO
+          "-lsfksldfksdlfkd" NO
+          ".fksdlkgsdlgksldgk" NO
+          "*fskdgjskgjsk" YES
         */
    }
 }
