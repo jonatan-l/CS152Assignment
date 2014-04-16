@@ -40,35 +40,49 @@ public class SchemeInterpreter
         //Two single quotes are not allowed or one double quote is allowed. No more than 2 double quoted symbols.
         return currentToken;
     }
-    //Check how well this function validates variables!
-    public String isValidVar(String currentToken) /*throws IllegalArgumentException*///This function will be part of a class
+
+    //Verifies that character c is in the valid Scheme symbol range.
+    private boolean valSchemeSymbols(char c)
+    {
+        String validSymbs ="!@#$%^&*-+=./<>:~?_";
+        boolean foundSymbol = false;
+        for(int j = 0; j < validSymbs.length(); j++)
+        {
+            if(c == validSymbs.charAt(j))
+            {
+                foundSymbol = true;
+            }
+        }
+        return foundSymbol;
+    }
+
+    //Works flawlessly!
+    public String isValidVar(String currentToken) throws IllegalArgumentException ///This function will be part of a class
     {
         if(currentToken.length() == 0)
         {
             throw new IllegalArgumentException("Argument can not be Empty!");
         }
-        String validSymbs ="!@#$%^&*()-+=./<>:~?_";
+
         for(int i = 0; i < currentToken.length(); i++)
         {
-            for(int j = 0; j < validSymbs.length(); j++)
-            { //fixing a bug! Its not a big bug, the bug is, a ( is not being let throught. (I know its not allowed,
-                //but to fix a bug, it must be allowed!
-                if(((currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9') &&
-                   (currentToken.charAt(0) == validSymbs.charAt(j)))||
-                   ((i > 0)&&(!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9' ||
-                                currentToken.charAt(i) == validSymbs.charAt(j)||
-                                currentToken.charAt(i) >= 'a' && currentToken.charAt(i) <= 'z' ||
-                                currentToken.charAt(i) >= 'A' && currentToken.charAt(i) <= 'Z'))))
-                {
-                    System.out.println(currentToken.charAt(i)+ " i:" + i + " j:" + j);
-                    throw new IllegalArgumentException("Variables can not start with a number!\n"+
-                    "It can start with !@#$%^&*()-+=./<>:~?_ or a letter!\n"+
+                if(((currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9') ||
+                        !valSchemeSymbols(currentToken.charAt(0)) &&
+                        !Character.isLetterOrDigit(currentToken.charAt(0))) ||
+                   ((i > 0) && ((!valSchemeSymbols(currentToken.charAt(i)) &&
+                                 !Character.isLetterOrDigit(currentToken.charAt(i)))||
+                           (!Character.isLetterOrDigit(currentToken.charAt(i))&&
+                                   !valSchemeSymbols(currentToken.charAt(i)))
+                  )))
+            {
+                   throw new IllegalArgumentException("Variables can not start with a number!\n"+
+                    "It can start with !@#$%^&*-+=./<>:~?_ or a letter!\n"+
                     "It may be followed by any number,letter or previously shown symbols!");
-                }
             }
         }
         return currentToken;
     }
+
     //Check the validity of an unsigned integer, this function works flawlessly!
     public String isValidUnsignedInt(String currentToken) throws IllegalArgumentException//Assures all digits are numbers
     {
@@ -110,6 +124,15 @@ public class SchemeInterpreter
         SchemeInterpreter si = new SchemeInterpreter();
         System.out.println(si.isValidNumber("1232.35536"));
         System.out.println(si.isValidUnsignedInt("123235536"));
-        System.out.println(si.isValidVar("(bjfksdjgka")); //"a()&%@(7407_@Q865+bdklskgsl"
+        System.out.println(si.isValidVar("kalsdjalfkj95103968103968105891053910asdfa."));
+        /*
+          "7(bjfksdjgka"
+          "(bjfksdjgka"
+          "a()&%@(7407_@Q865+bdklskgsl"
+          "a&%@7407_@Q865+bdklskgsl"
+          "7bjfk4764749439!@#$%^&*()-+=./<>:~?_sdjgka"
+          "758932854764749439!@#$%^&*()-+=./<>:~?_sdjgka"
+          "kalsdjalfkj95103968103968105891053910asdfa."
+        */
    }
 }

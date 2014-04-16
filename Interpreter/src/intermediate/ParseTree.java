@@ -10,7 +10,8 @@ public class ParseTree {
 		
 	}
 	
-	class Pair{
+	class Pair
+    {
 		Token car;
 		Token cdr;
 	}
