@@ -62,12 +62,12 @@ public class Parser
 
         for(int i = 1; i < currentToken.length(); i++)
         {
-            if(((!valSchemeSymbols(currentToken.charAt(i)) && !Character.isLetterOrDigit(currentToken.charAt(i)))||
-                !Character.isLetterOrDigit(currentToken.charAt(i))) && (currentToken.charAt(i) != '\''|| currentToken.charAt(i) != '\"'))
+            if((!valSchemeSymbols(currentToken.charAt(i)) && !Character.isLetterOrDigit(currentToken.charAt(i)) &&
+                    (currentToken.charAt(i) != '\'' && currentToken.charAt(i) != '\"')))
             {
-                      System.out.println("HERE---> 1: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
-                      throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end\n"+
-                              "2 \' are not allowed too! In addition, except for (), everything is allowed!");
+                System.out.println("HERE---> 1: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
+                throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end\n"+
+                        "2 \' are not allowed too! In addition, except for (), everything is allowed!");
             }
             else if(i < currentToken.length() - 1 && (currentToken.charAt(i) == '\"' || currentToken.charAt(i) == '\''))
             {
@@ -83,13 +83,13 @@ public class Parser
 
             if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) == '\"' && numOfDoubleQuotes == 2) ||
                     (startsWithSingleQuote == true && (currentToken.charAt(currentToken.length() - 1) == '\'' ||
-                     currentToken.charAt(currentToken.length() - 1) == '\"') && (numOfSingleQuotes > 1 || numOfDoubleQuotes > 1)))
+                            currentToken.charAt(currentToken.length() - 1) == '\"') && (numOfSingleQuotes > 1 || numOfDoubleQuotes > 1)))
             {
-               return currentToken;
+                return currentToken;
             }
 
             if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes > 2 || numOfSingleQuotes > 2))||
-               !startsWithSingleQuote)
+                    !startsWithSingleQuote)
             {
                 System.out.println("HERE---> 5: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i));
                 throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end"+
