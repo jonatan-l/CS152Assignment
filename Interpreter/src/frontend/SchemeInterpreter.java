@@ -15,8 +15,7 @@ package frontend;
 //Testing
 public class SchemeInterpreter
 {
-    
-    private String[] keywords = {"and", "begin", "begin0", "break-var", "case", "cond", "cycle", "define",
+    private String[] keywords = {"and", "begin","begin0","break-var", "case", "cond", "cycle", "define",
 						"delay", "delay-list-cons", "do", "else", "extend-syntax", "for", "freeze",
 						"if", "lambda", "let", "letrec", "let*", "macro", "object-maker", "or",
 						"quote", "repeat", "safe-letrec", "set!", "stream-cons", "variable-case",
@@ -25,7 +24,7 @@ public class SchemeInterpreter
 	//Check if the token is one of the keywords.					
     public boolean isReservedWord(String currentToken) throws IllegalArgumentException {
         boolean isReserved = false; //By default thinks its bad, unless proven otherwise
-        for (int i = 0; keywords.length < i; i++) {
+        for (int i = 0; i < keywords.length; i++) {
             if (currentToken.equals(keywords[i]))
             {
                 isReserved = true;
@@ -125,6 +124,7 @@ public class SchemeInterpreter
         System.out.println(si.isValidNumber("1232.35536"));
         System.out.println(si.isValidUnsignedInt("123235536"));
         System.out.println(si.isValidVar("kalsdjalfkj95103968103968105891053910asdfa."));
+        System.out.println(si.isReservedWord("let*"));
         /*
           "7(bjfksdjgka"
           "(bjfksdjgka"
