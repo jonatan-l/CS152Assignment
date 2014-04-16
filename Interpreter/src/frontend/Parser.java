@@ -13,7 +13,7 @@ package frontend;
 */
 
 //Testing
-public class SchemeInterpreter
+public class Parser
 {
     private String[] keywords = {"and", "begin","begin0","break-var", "case", "cond", "cycle", "define",
 						"delay", "delay-list-cons", "do", "else", "extend-syntax", "for", "freeze",
@@ -33,34 +33,71 @@ public class SchemeInterpreter
         }
         return isReserved;
     }
+
     public String isValidString(String currentToken) throws IllegalArgumentException
     {
-        //I think I nailed it!-> A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
+        //A string must start with ' or start with " and end with ", it can not be followed by ( ) or )(
         //Two single quotes are not allowed or one double quote is allowed. No more than 2 double quoted symbols.
         if(currentToken.isEmpty())
         {
             throw new IllegalArgumentException("Argument can not be Empty!");
         }
-        int numOfDoubleQuotes = -1;
-        int numOfSingleQuotes = -1;
-        boolean isValidString = true;
+
+        boolean startsWithDoubleQuote = false;
+        boolean startsWithSingleQuote = false;
+
+        int numOfDoubleQuotes = 0;
+        int numOfSingleQuotes = 0;
 
         if(currentToken.charAt(0) == '\'')
         {
-            for(int i = 0; i < currentToken.length(); i++)
-            {
-                if((!valSchemeSymbols(currentToken.charAt(i)) &&
-                    !Character.isLetterOrDigit(currentToken.charAt(i)))||
-                   (currentToken.charAt(i) == '\"' &&
-                   (numOfDoubleQuotes > 2 || numOfDoubleQuotes == 1)))
-                {
-                    throw new IllegalArgumentException("More than 2 \" marks are not allowed, ");
-                }
-            }
+            numOfSingleQuotes = 1;
+            startsWithSingleQuote = true;
         }
         else if(currentToken.charAt(0) == '\"')
         {
+            numOfDoubleQuotes = 1;
+            startsWithDoubleQuote = true;
+        }
 
+        for(int i = 1; i < currentToken.length(); i++)
+        {
+            if(((!valSchemeSymbols(currentToken.charAt(i)) && !Character.isLetterOrDigit(currentToken.charAt(i))) ||
+                !Character.isLetterOrDigit(currentToken.charAt(i)))||
+                (i < currentToken.length() - 1 && (currentToken.charAt(i) == '\"' || currentToken.charAt(i) == '\'')))
+            {
+                if((startsWithSingleQuote && numOfSingleQuotes > 1 && i < currentToken.length() - 1) ||
+                        ((startsWithSingleQuote || startsWithDoubleQuote) && (numOfDoubleQuotes > 1 && i < currentToken.length() - 1)))
+                {
+                    System.out.println("HERE---> 2: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
+                    throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end");
+                }
+                else if(currentToken.charAt(i) == '\"'){ System.out.println("HERE---> 3: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i)); numOfDoubleQuotes++; } //Increments any time a double quote is encountered
+                else if(currentToken.charAt(i) == '\''){ System.out.println("HERE---> 4: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i)); numOfSingleQuotes++; }
+
+                System.out.println("HERE---> 1: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
+                   throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end\n"+
+                          "2 \' are not allowed too! In addition, except for (), everything is allowed!");
+            }
+            else if(i < currentToken.length() - 1 && (currentToken.charAt(i) == '\"' || currentToken.charAt(i) == '\''))
+            {
+
+            }
+
+            if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) == '\"' && numOfDoubleQuotes == 2) ||
+                    (startsWithSingleQuote == true && (currentToken.charAt(currentToken.length() - 1) == '\'' ||
+                     currentToken.charAt(currentToken.length() - 1) == '\"') && (numOfSingleQuotes > 1 || numOfDoubleQuotes > 1)))
+            {
+               return currentToken;
+            }
+
+            if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes > 2 || numOfSingleQuotes > 2))||
+               !startsWithSingleQuote)
+            {
+                System.out.println("HERE---> 5: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i));
+                throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end"+
+                        "\nA string can not have () or )(");
+            }
         }
         return currentToken;
     }
@@ -147,12 +184,12 @@ public class SchemeInterpreter
    }
    public static void main(String[] args)
    {
-        SchemeInterpreter si = new SchemeInterpreter();
+        Parser si = new Parser();
         System.out.println(si.isValidNumber("1232.35536"));
         System.out.println(si.isValidUnsignedInt("123235536"));
         System.out.println(si.isValidVar("*fskdgjskgjsk"));
-
         System.out.println(si.isReservedWord("let*"));
+        System.out.println(si.isValidString("''lgksldgjslkgjsl()203596103691095015"));
         /*
           "7(bjfksdjgka" NO
           "(bjfksdjgka" YES
@@ -165,6 +202,9 @@ public class SchemeInterpreter
           "-lsfksldfksdlfkd" NO
           ".fksdlkgsdlgksldgk" NO
           "*fskdgjskgjsk" YES
+          toTest:"'lgksldgjslkgjsl203596103691095015"
+          "'lgksldgjslkgjsl()203596103691095015" NO
+          "''lgksldgjslkgjsl()203596103691095015" NO
         */
    }
 }
