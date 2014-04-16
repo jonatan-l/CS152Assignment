@@ -28,15 +28,15 @@ public class ParseTree {
 		//need method that gives next item as a token
 		Token item = SchemeInterpreter.getToken();
 		if(item.getValue().compareTo(")") == 0){
-			return;
+			return;//base case closing back up
 		}
 		if(item.getValue().compareTo("(")== 0){
-			Pair left = new Pair();
-			populate(left);
+			Pair left = new Pair();//new list in left pair
+			populate(left);//run on left pair
 		}
 		else{
-			lst.add(item);
+			lst.add(item);//add token
 		}
-		populate(lst.getCdr());
+		populate(lst.getCdr()); //run on right pair
 	}
 }
