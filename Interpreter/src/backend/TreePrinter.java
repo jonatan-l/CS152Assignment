@@ -26,7 +26,6 @@ public class TreePrinter {
 			result += ((Token)node.getCar()).getValue();
 		}
 		if(node.isAtom()){
-			node;
 		}
 		return null;
 	}

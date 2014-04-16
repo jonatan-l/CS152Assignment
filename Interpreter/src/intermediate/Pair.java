@@ -31,7 +31,7 @@ public class Pair implements Atom {
 		return car;
 	}
 
-	public Atom getCdr() {
+	public Pair getCdr() {
 		return cdr;
 	}
 
