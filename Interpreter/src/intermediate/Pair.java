@@ -2,7 +2,7 @@ package intermediate;
 
 import frontend.Token;
 
-class Pair implements Atom {
+public class Pair implements Atom {
 	private Atom car;
 	private Pair cdr;
 
@@ -31,7 +31,7 @@ class Pair implements Atom {
 		return car;
 	}
 
-	public Atom getCdr() {
+	public Pair getCdr() {
 		return cdr;
 	}
 
