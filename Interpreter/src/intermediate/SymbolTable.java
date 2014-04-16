@@ -4,7 +4,7 @@ import java.util.TreeMap;
 
 public class SymbolTable
 {
-	TreeMap map;
+	TreeMap<String, String> map;
 	public SymbolTable(){
 		map = new TreeMap<String, String>();
 	}
