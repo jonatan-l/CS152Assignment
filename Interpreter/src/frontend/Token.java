@@ -11,6 +11,11 @@ public class Token implements Atom{
 		type = "";
 	}
 	
+	public Token(String item){
+		value = item;
+		type = "";
+	}
+	
 	public boolean isAtom(){
 		return true;
 	}
