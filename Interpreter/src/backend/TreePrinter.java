@@ -6,27 +6,34 @@ import intermediate.Pair;
 import intermediate.ParseTree;
 
 public class TreePrinter {
-	public static String print(ParseTree tree) {
-		// look in left subtree
-		Pair root = tree.getRoot();
-		if(root.isAtom()){
+
+	private ParseTree t;
+	public TreePrinter(ParseTree tree){
 		
-		}
-		//look in right subtree
-		//close brackets
-		return null;
+		t = tree;
 	}
 	
-	private String walkTree(Pair node){
-		String result = "";
-		if(node.getCar() == null){
-			return result;
+	public void print(Pair t){
+		
+		if(t.getCar() == null){
+			System.out.print(")");
 		}
-		else if(node.getCar().isAtom()){
-			result += ((Token)node.getCar()).getValue();
+		else if(!t.getCar().isAtom()){//false ---- ! or not
+			System.out.print("\n(");
+			print((Pair) t.getCar());//manual type change?
+			print(t.getCdr());
 		}
-		if(node.isAtom()){
+		else if(t.getCar().isAtom()){//true
+			System.out.print(t.getCar() + " ");
+			print(t.getCdr());
 		}
-		return null;
+		
+	}
+	
+	//create TreePrinter with the Parse tree then just call printer()
+	public void printer(){
+		
+		System.out.print("(");
+		print(t.getRoot());
 	}
 }
