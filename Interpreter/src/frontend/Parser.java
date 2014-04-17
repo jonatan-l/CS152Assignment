@@ -53,6 +53,14 @@ public class Parser {
 		}
 		return false;
 	}
+	
+	public SymbolTable getSymbolTable() {
+		return map;
+	}
+	
+	public ParseTree getParseTree() {
+		return tree;
+	}
 
 	public String isValidString(String currentToken)
 			throws IllegalArgumentException {
@@ -249,6 +257,9 @@ public class Parser {
 
 	}
 
+	/**
+	 * Scans the given file and populates the tree with 
+	 */
 	public void populateParseTree() {
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
@@ -277,8 +288,8 @@ public class Parser {
 						item = linearray[i++];
 					}
 					Token piece = new Token(item);
-					identify(piece);// todo send token to check
-					tree.add(piece);
+					identify(piece);//add type to token
+					tree.add(piece);// add token to parsetree
 				}
 			}
 		}
