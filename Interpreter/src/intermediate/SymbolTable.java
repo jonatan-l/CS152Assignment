@@ -16,4 +16,14 @@ public class SymbolTable
 	public String getValue(String key){
 		return (String) map.get(key);
 	}
+	
+	public void entries() {
+		// TODO Auto-generated method stub
+		Collection<?> entrySet = map.entrySet();
+
+	    Iterator<?> it = entrySet.iterator();
+	
+	    while(it.hasNext())
+	System.out.println(it.next());
+	}
 }
