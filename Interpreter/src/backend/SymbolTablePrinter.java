@@ -8,4 +8,14 @@ package backend;
 public class SymbolTablePrinter
 {
 
+  private SymbolTable t;
+	  public SymbolTablePrinter(SymbolTable table){
+		
+		  t = table;
+  	}
+	
+  	public void printer(){
+		
+	  	t.entries();
+	  }
 }
