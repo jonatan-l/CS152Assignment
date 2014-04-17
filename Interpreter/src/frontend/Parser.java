@@ -251,7 +251,8 @@ public class Parser {
 			item.setType("Number");
 		} else {
 			item.setType("Symbol");
-			map.add(value, value);
+			map.add(value, value);//add to symbol table
+			
 		}
 		return item;
 
