@@ -65,33 +65,23 @@ public class Parser
             if((!valSchemeSymbols(currentToken.charAt(i)) && !Character.isLetterOrDigit(currentToken.charAt(i)) &&
                     (currentToken.charAt(i) != '\'' && currentToken.charAt(i) != '\"')))
             {
-                System.out.println("HERE---> 1: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
                 throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end\n"+
                         "2 \' are not allowed too! In addition, except for (), everything is allowed!");
             }
             else if(i < currentToken.length() - 1 && (currentToken.charAt(i) == '\"' || currentToken.charAt(i) == '\''))
             {
+                if(currentToken.charAt(i) == '\"'){ numOfDoubleQuotes++; } //Increments any time a double quote is encountered
+                else if(currentToken.charAt(i) == '\''){ numOfSingleQuotes++; }
+
                 if((startsWithSingleQuote && numOfSingleQuotes > 1 && i < currentToken.length() - 1) ||
                         ((startsWithSingleQuote || startsWithDoubleQuote) && (numOfDoubleQuotes > 1 && i < currentToken.length() - 1)))
                 {
-                    System.out.println("HERE---> 2: " + " i: " + i + "  currentToken.charAt(i) = " + currentToken.charAt(i));
                     throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end");
                 }
-                else if(currentToken.charAt(i) == '\"'){ System.out.println("HERE---> 3: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i)); numOfDoubleQuotes++; } //Increments any time a double quote is encountered
-                else if(currentToken.charAt(i) == '\''){ System.out.println("HERE---> 4: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i)); numOfSingleQuotes++; }
             }
-
-            if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) == '\"' && numOfDoubleQuotes == 2) ||
-                    (startsWithSingleQuote == true && (currentToken.charAt(currentToken.length() - 1) == '\'' ||
-                            currentToken.charAt(currentToken.length() - 1) == '\"') && (numOfSingleQuotes > 1 || numOfDoubleQuotes > 1)))
-            {
-                return currentToken;
-            }
-
             if((startsWithDoubleQuote == true && currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes > 2 || numOfSingleQuotes > 2))||
                     !startsWithSingleQuote)
             {
-                System.out.println("HERE---> 5: " + " i: " + i + "  currentToken.charAt(i) = " +  currentToken.charAt(i));
                 throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end"+
                         "\nA string can not have () or )(");
             }
@@ -186,7 +176,7 @@ public class Parser
         System.out.println(si.isValidUnsignedInt("123235536"));
         System.out.println(si.isValidVar("*fskdgjskgjsk"));
         System.out.println(si.isReservedWord("let*"));
-        System.out.println(si.isValidString("''lgksldgjslkgjsl()203596103691095015"));
+        System.out.println(si.isValidString("'!@#$%^*lgksldgjslkgjsl203596103691095015-_="));
         /*
           "7(bjfksdjgka" NO
           "(bjfksdjgka" YES
@@ -199,7 +189,8 @@ public class Parser
           "-lsfksldfksdlfkd" NO
           ".fksdlkgsdlgksldgk" NO
           "*fskdgjskgjsk" YES
-          toTest:"'lgksldgjslkgjsl203596103691095015"
+          "'!@#$%^*lgksldgjslkgjsl203596103691095015-_=" YES
+          "'lgksldgjslkgjsl203596103691095015" YES
           "'lgksldgjslkgjsl()203596103691095015" NO
           "''lgksldgjslkgjsl()203596103691095015" NO
         */

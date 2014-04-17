@@ -30,9 +30,15 @@ public class ParseTree {
 	
 	public void add(Token lst){
 		//need method that gives next item as a token
+<<<<<<< HEAD
 		if(lst.getValue().compareTo(")") == 0){
 			end = stack.remove(stack.size() - 1);
 			return;//base case closing back up and resets end to last part of stack
+=======
+		Token item = Parser.getToken();
+        if(item.getValue().compareTo(")") == 0){
+			return;//base case closing back up
+>>>>>>> 67fa9868421ce5c408da0083b630fb323d02a26b
 		}
 		if(lst.getValue().compareTo("(")== 0){
 			Pair left = new Pair();//new list in left pair
