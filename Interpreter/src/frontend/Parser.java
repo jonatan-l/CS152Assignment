@@ -195,6 +195,13 @@ public class Parser
           "''lgksldgjslkgjsl()203596103691095015" NO
         */
    }
+   private Token identify(Token item){
+	   String value = item.getValue();
+	   
+	   return item;
+	   
+   }
+   
    
 }
    
