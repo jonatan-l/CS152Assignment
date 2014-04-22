@@ -1,5 +1,6 @@
 package intermediate;
-
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.TreeMap;
 
 public class SymbolTable

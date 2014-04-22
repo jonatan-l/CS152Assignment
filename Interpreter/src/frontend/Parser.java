@@ -2,7 +2,6 @@ package frontend;
 
 import intermediate.ParseTree;
 import intermediate.SymbolTable;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
@@ -179,35 +178,32 @@ public class Parser {
 			}
 		}
 		// save type information here: "unsigned int";
-		return currentToken; // Returns the unsigned integer if it is a valid
-								// unsigned integer
+		return currentToken; // Returns the unsigned integer if it is a valid unsigned integer
 	}
 
 	// Check the validity of a number, this function works flawlessly!
-	public boolean isValidNumber(String currentToken)
-	// throws IllegalArgumentException// Assures all digits are number and
-	// . is only present once
-	{/*
-	 * if (currentToken.length() == 0) { throw new
-	 * IllegalArgumentException("Argument can not be Empty!"); }
-	 */
-		// boolean foundDotAlready = false;
+	public String isValidNumber(String currentToken) throws IllegalArgumentException// Assures all digits are number and . is only present once
+	{
+	    if (currentToken.length() == 0)
+        {
+            throw new IllegalArgumentException("Argument can not be Empty!");
+        }
+		boolean foundDotAlready = false;
 
-		for (int i = 0; i < currentToken.length(); i++) {
-			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')) {
-				// && (currentToken.charAt(i) //== '.' && foundDotAlready)) {
-				return false;
+		for (int i = 0; i < currentToken.length(); i++)
+        {
+			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')
+				&& (currentToken.charAt(i) == '.' && foundDotAlready))
+            {
+			  throw new IllegalArgumentException("This is not a number!");
+            }
+			else if (currentToken.charAt(i) == '.')
+            {
+               foundDotAlready = true;
 			}
-			/*
-			 * throw new IllegalArgumentException("This is not a number!"); }
-			 * else if (currentToken.charAt(i) == '.') { foundDotAlready = true;
-			 * }
-			 */
 		}
-		return true;
 		// Save token type here, in this case: "number";
-		// return currentToken; // Returns the value if currentToken is indeed a
-		// number
+		return currentToken; // Returns the value if currentToken is indeed a number
 	}
 
 	public boolean checkSpecial(String item) throws IllegalArgumentException {
@@ -219,37 +215,15 @@ public class Parser {
 		return false;
 	}
 
-	/*public static void main(String[] args) {
-		Parser si = new Parser();
-		System.out.println(si.isValidNumber("1232.35536"));
-		System.out.println(si.isValidUnsignedInt("123235536"));
-		System.out.println(si.isValidVar("*fskdgjskgjsk"));
-		System.out.println(si.isReservedWord("let*"));
-		System.out.println(si
-				.isValidString("'!@#$%^*lgksldgjslkgjsl203596103691095015-_="));
-		/*
-		 * "7(bjfksdjgka" NO "(bjfksdjgka" YES "a()&%@(7407_@Q865+bdklskgsl" NO
-		 * "a&%@7407_@Q865+bdklskgsl" YES
-		 * "7bjfk4764749439!@#$%^&*()-+=./<>:~?_sdjgka" NO
-		 * "758932854764749439!@#$%^&*()-+=./<>:~?_sdjgka" NO
-		 * "kalsdjalfkj95103968103968105891053910asdfa." YES "+fskdgjskgjsk" NO
-		 * "-lsfksldfksdlfkd" NO ".fksdlkgsdlgksldgk" NO "*fskdgjskgjsk" YES
-		 * "'!@#$%^*lgksldgjslkgjsl203596103691095015-_=" YES
-		 * "'lgksldgjslkgjsl203596103691095015" YES
-		 * "'lgksldgjslkgjsl()203596103691095015" NO
-		 * "''lgksldgjslkgjsl()203596103691095015" NO
-		 
-	}*/
-
 	private Token identify(Token item) {
 		String value = item.getValue();
 		if (isReservedWord(value)) {
 			item.setType("Keyword");
 		} else if (checkSpecial(value)) {
 			item.setType("Special Symbol");
-		} else if (isValidNumber(item.getValue())) {
+		} else if (isValidNumber(item.getValue()).equals(item.getValue())) {
 			item.setType("Number");
-		} else {
+        } else {
 			item.setType("Symbol");
 			map.add(value, value);//add to symbol table
 			
@@ -264,8 +238,8 @@ public class Parser {
 	public void populateParseTree() {
 		while (in.hasNextLine()) {
 			String line = in.nextLine();
-			line.replaceAll("(", " ( ");
-			line.replaceAll(")", " ) ");
+			line.replaceAll("\\(", "\\( ");
+			line.replaceAll("\\)", "\\) ");
 			String[] linearray = line.split(" ");
 			for (int i = 0; i < linearray.length; i++) {
 				if (linearray[i].compareTo(";") == 0) { // comment nullification
