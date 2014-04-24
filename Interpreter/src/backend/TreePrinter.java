@@ -1,7 +1,5 @@
 package backend;
 
-import frontend.Token;
-import intermediate.Atom;
 import intermediate.Pair;
 import intermediate.ParseTree;
 

@@ -3,11 +3,22 @@ package frontend;
 import java.io.File;
 import java.io.FileNotFoundException;
 
+import backend.SymbolTablePrinter;
+import backend.TreePrinter;
+
 public class Main {
 	public static void main(String[] args) throws FileNotFoundException {
-		File fi = new File("/input.lisp");
+		System.out.println("Start");
+		File fi = new File("src/input.lisp");
 		Parser start = new Parser(fi);
 		start.populateParseTree();
+		System.out.println("Tree /n --------------");
+		TreePrinter p = new TreePrinter(start.getParseTree());
+		p.printer();
+		
+		System.out.println("Table /n -------------");
+		SymbolTablePrinter t = new SymbolTablePrinter(start.getSymbolTable());
+		t.printer();
 		
 	}
 
