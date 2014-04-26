@@ -244,6 +244,7 @@ public class Parser {
         {
             throw new IllegalArgumentException(exceptionSummary);
         }
+        else nonApplicable = 0;
 		return item;
 	}
 

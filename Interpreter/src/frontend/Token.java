@@ -35,5 +35,4 @@ public class Token implements Atom{
 	public String getValue() {
 		return value;
 	}
-    public String toString() { return  getValue(); }
 }

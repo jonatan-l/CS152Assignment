@@ -5,27 +5,27 @@ import java.util.Iterator;
 import java.util.TreeMap;
 
 public class SymbolTable {
-	TreeMap<String, String> map;
+    TreeMap<String, String> map;
 
-	public SymbolTable() {
-		map = new TreeMap<String, String>();
-	}
+    public SymbolTable() {
+        map = new TreeMap<String, String>();
+    }
 
-	public void add(String key, String value) {
-		map.put(key, value);
-	}
+    public void add(String key, String value) {
+        map.put(key, value);
+    }
 
-	public String getValue(String key) {
-		return (String) map.get(key);
-	}
+    public String getValue(String key) {
+        return (String) map.get(key);
+    }
 
-	public void entries() {
-		// TODO Auto-generated method stub
-		Collection<?> entrySet = map.entrySet();
+    public void entries() {
+        // TODO Auto-generated method stub
+        Collection<?> entrySet = map.entrySet();
 
-		Iterator<?> it = entrySet.iterator();
+        Iterator<?> it = entrySet.iterator();
 
-		while (it.hasNext())
-			System.out.println(it.next());
-	}
+        while (it.hasNext())
+            System.out.println(it.next());
+    }
 }
