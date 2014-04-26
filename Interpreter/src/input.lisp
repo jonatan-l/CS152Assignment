@@ -1,4 +1,4 @@
-; Find the derivative of polynomial poly with repect to variable var.
+; Find the derivative of polynomial poly with respect to variable var.
 ; The polynomial must be in canonical infix form.
 (define deriv
   (lambda (poly var)

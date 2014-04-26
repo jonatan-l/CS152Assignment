@@ -11,6 +11,7 @@ public class ParseTree {
 	private ArrayList<Pair> stack;//stack holds all the left pairs after parenthesis 
 	
 	public ParseTree() {
+        stack = new ArrayList<Pair>();
 		root = new Pair();
 		end = root;
 		stack.add(end);

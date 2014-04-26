@@ -32,24 +32,26 @@ public class Parser {
 	private Scanner in;
 	private ParseTree tree;
 	private SymbolTable map;
-
+    private String exceptionMessage;
 	public Parser(File f) throws FileNotFoundException {
 		in = new Scanner(f);
 		tree = new ParseTree();
 		map = new SymbolTable();
 		populateParseTree();
+        exceptionMessage = "";
 	}
 
 	// Check if the token is one of the keywords.
-	public boolean isReservedWord(String currentToken,Token tok)
-			throws IllegalArgumentException { // By default thinks its bad, unless proven otherwise
+	public boolean isReservedWord(String currentToken,Token tok){ // By default thinks its bad, unless proven otherwise
 		for (int i = 0; i < keywords.length; i++) {
 			if (currentToken.compareToIgnoreCase(keywords[i]) == 0) {
                 tok.setType("Keyword");
+                exceptionMessage = "";
                 return true;
 			}
 		}
         tok.setType("Undefined");
+        exceptionMessage = "This is Not a Reserved Key Word!";
 		return false;
 	}
 	
@@ -62,13 +64,14 @@ public class Parser {
 	}
 
     public boolean isValidString(String currentToken, Token tok)
-            throws IllegalArgumentException {
+    {
         // A string must start with ' or start with " and end with ", it can not
         // be followed by ( ) or )( Two single quotes are not allowed or one double quote is allowed. No
         // more than 2 double quoted symbols.
         if (currentToken.isEmpty()) {
             tok.setType("Undefined");
-            throw new IllegalArgumentException("Argument can not be Empty!");
+            exceptionMessage = "Argument can not be Empty!";
+            return false;
         }
 
         boolean startsWithDoubleQuote = false;
@@ -87,7 +90,8 @@ public class Parser {
             if ((!valSchemeSymbols(currentToken.charAt(i))
                     && !isLetterOrDigit(currentToken.charAt(i)) && (currentToken.charAt(i) != '\'' && currentToken.charAt(i) != '\"'))) {
                 tok.setType("Undefined");
-                throw new IllegalArgumentException("Strings can not begin with a number and can not have () at any place in string!");
+                exceptionMessage = "Strings can not begin with a number and can not have () at any place in string!";
+                return false;
             }
             else if (currentToken.charAt(i) == '\"') {
                 numOfDoubleQuotes++;
@@ -96,16 +100,19 @@ public class Parser {
                     (!startsWithDoubleQuote && !startsWithSingleQuote && numOfDoubleQuotes >= 1))
             {
                 tok.setType("Undefined");
-                throw new IllegalArgumentException("More than 2 \" marks are not allowed, except for beginning and end");
+                exceptionMessage = "More than 2 \" marks are not allowed, except for beginning and end";
+                return false;
             }
             if ((startsWithDoubleQuote == true && startsWithSingleQuote == false) &&
                     (currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes >= 1)))
             {
                 tok.setType("Undefined");
-                throw new IllegalArgumentException("More than 2 \" marks or only one \" mark are not allowed.");
+                exceptionMessage = "More than 2 \" marks or only one \" mark are not allowed.";
+                return false;
             }
         }
         tok.setType("String");
+        exceptionMessage = "";
         return true;
     }
 
@@ -123,11 +130,11 @@ public class Parser {
 
 	// Works flawlessly!
 	public boolean isValidVar(String currentToken, Token tok)
-			throws IllegalArgumentException
 	{
 		if (currentToken.length() == 0) {
             tok.setType("Undefined");
-			throw new IllegalArgumentException("Argument can not be Empty!");
+			exceptionMessage = "Argument can not be Empty!";
+            return false;
 		}
 
 		for (int i = 0; i < currentToken.length(); i++) {
@@ -140,44 +147,47 @@ public class Parser {
                     !isLetterOrDigit(currentToken.charAt(i))) || (!isLetterOrDigit(currentToken.charAt(i))
                     && !valSchemeSymbols(currentToken.charAt(i)))))) {
                 tok.setType("Undefined");
-				throw new IllegalArgumentException(
-						"Variables can not start with a number!\n"
+				exceptionMessage = "Variables can not start with a number!\n"
 								+ "It can start with !@#$%^&*-+=./<>:~?_ or a letter!\n"
-								+ "It may be followed by any number,letter or previously shown symbols!");
+								+ "It may be followed by any number,letter or previously shown symbols!";
+                return false;
 			}
 		}
         tok.setType("Symbol");
         map.add(currentToken, currentToken);//add to symbol table
-		return true;
+		exceptionMessage = "";
+        return true;
 	}
 
 	// Check the validity of an unsigned integer, this function works flawlessly!
-	public boolean isValidUnsignedInt(String currentToken, Token tok)
-			throws IllegalArgumentException// Assures all digits are numbers
+	public boolean isValidUnsignedInt(String currentToken, Token tok) // Assures all digits are numbers
 	{
 		if (currentToken.length() == 0) {
             tok.setType("Undefined");
-			throw new IllegalArgumentException("Argument can not be Empty!");
+			exceptionMessage = "Argument can not be Empty!";
+            return false;
 		}
 
 		for (int i = 0; i < currentToken.length(); i++) {
 			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')) {
                 tok.setType("Undefined");
-                throw new IllegalArgumentException(
-						"This is not an Unsigned Integer!");
+                exceptionMessage = "This is not an Unsigned Integer!";
+                return false;
 			}
 		}
 		tok.setType("Unsigned Int");
+        exceptionMessage = "";
 		return true; // Returns true if it is a valid unsigned integer
 	}
 
 	// Check the validity of a number, this function works flawlessly!
-	public boolean isValidNumber(String currentToken, Token tok) throws IllegalArgumentException// Assures all digits are number and . is only present once
+	public boolean isValidNumber(String currentToken, Token tok) // Assures all digits are number and . is only present once
 	{
 	    if (currentToken.length() == 0)
         {
             tok.setType("Undefined");
-            throw new IllegalArgumentException("Argument can not be Empty!");
+            exceptionMessage = "Argument can not be Empty!";
+            return false;
         }
 		boolean foundDotAlready = false;
 
@@ -187,7 +197,8 @@ public class Parser {
 				&& (currentToken.charAt(i) == '.' && foundDotAlready))
             {
               tok.setType("Undefined");
-			  throw new IllegalArgumentException("This is not a number!");
+			  exceptionMessage = "This is not a number!";
+              return false;
             }
 			else if (currentToken.charAt(i) == '.')
             {
@@ -195,30 +206,44 @@ public class Parser {
 			}
 		}
         tok.setType("Number");
+        exceptionMessage = "";
 		return true; // Returns the true if currentToken is indeed a number
 	}
 
-	public boolean checkSpecial(String item, Token tok) throws IllegalArgumentException {
+	public boolean checkSpecial(String item, Token tok)
+    {
 		for (int i = 0; i < specialchars.length; i++) {
 			if (item.compareToIgnoreCase(specialchars[i]) == 0) {
                 tok.setType("Special Symbol");
+                exceptionMessage = "";
 				return true;
 			}
 		}
         tok.setType("Undefined");
-		return false;
+        exceptionMessage = "This is Not a Special Symbol!\nExamples special symbols: ()[]{};,.\"'#\\";
+        return false;
 	}
 
-	private Token identify(Token item)
+	private Token identify(Token item) throws IllegalArgumentException
     {
 		String value = item.getValue();
-		if (isReservedWord(value,item) ||
-            checkSpecial(value,item) ||
-            isValidUnsignedInt(value,item) ||
-            isValidNumber(value,item) ||
-            isValidString(value,item) ||
-            isValidVar(value,item))
-        {}
+        int nonApplicable = 0;
+        String exceptionSummary = "";
+        if(isReservedWord(value, item) ||
+           checkSpecial(value, item) ||
+           isValidUnsignedInt(value, item) ||
+           isValidNumber(value, item) ||
+           isValidString(value, item) ||
+           isValidVar(value, item))
+        {
+            nonApplicable++;
+        }
+        else exceptionSummary += exceptionMessage + "\n";
+
+        if(nonApplicable == 6)
+        {
+            throw new IllegalArgumentException(exceptionSummary);
+        }
 		return item;
 	}
 
