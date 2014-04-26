@@ -4,7 +4,8 @@ import intermediate.ParseTree;
 import intermediate.SymbolTable;
 import java.util.Scanner;
 import static java.lang.Character.*;
-
+import java.io.File;
+import java.io.FileNotFoundException;
 /*
  For Assignment #5, put your parser and scanner classes in the frontend package.
  You should read the input (the Scheme source file) from standard input.
@@ -32,13 +33,12 @@ public class Parser {
 	private ParseTree tree;
 	private SymbolTable map;
 
-	/*public Parser(File f) throws FileNotFoundException {
+	public Parser(File f) throws FileNotFoundException {
 		in = new Scanner(f);
 		tree = new ParseTree();
 		map = new SymbolTable();
 		populateParseTree();
-		
-	}*/
+	}
 
 	// Check if the token is one of the keywords.
 	public boolean isReservedWord(String currentToken,Token tok)

@@ -1,8 +1,5 @@
 package intermediate;
-<<<<<<< HEAD
 
-=======
->>>>>>> fe04f258b7976aa0344baa072648ee65a28e36c8
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
