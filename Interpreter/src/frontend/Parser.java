@@ -38,7 +38,6 @@ public class Parser {
 		tree = new ParseTree();
 		map = new SymbolTable();
 		populateParseTree();
-        exceptionMessage = "";
 	}
 
 	// Check if the token is one of the keywords.
@@ -204,7 +203,7 @@ public class Parser {
         return false;
 	}
 
-	private Token identify(Token item) throws IllegalArgumentException
+	private Token identify(Token item)
     {
 		String value = item.getValue();
         if(isReservedWord(value, item) ||
