@@ -51,11 +51,11 @@ public class Parser {
         tok.setType("Undefined");
 		return false;
 	}
-	
+
 	public SymbolTable getSymbolTable() {
 		return map;
 	}
-	
+
 	public ParseTree getParseTree() {
 		return tree;
 	}
@@ -217,41 +217,43 @@ public class Parser {
         return item;
 	}
 
-	/**
-	 * Scans the given file and populates the tree with 
-	 */
-	public void populateParseTree() {
-		while (in.hasNextLine()) {
-			String line = in.nextLine();
-			line.replaceAll("\\(", "\\( ");
-			line.replaceAll("\\)", "\\) ");
-			String[] linearray = line.split(" ");
-			for (int i = 0; i < linearray.length; i++) {
-				if (linearray[i].compareTo(";") == 0) { // comment nullification
-					i = linearray.length + 1;
-				} else {
-					// potential sysout print place
-					String item = "";
-					if (linearray[i].compareTo("'") == 0) {// 0
-						item += "'";
-						i++;// 0->1
-						if (linearray[i++].compareTo("(") == 0) {// 1->2
-							item += "(";
-							while (linearray[i++].compareTo(")") != 0) {// 234
-								item += linearray[i];
-							}
-							item += ")";
-						} else {
-							item += linearray[i];
-						}
-					} else {
-						item = linearray[i++];
-					}
-					Token piece = new Token(item);
-					identify(piece);//add type to token
-					tree.add(piece);// add token to parsetree
-				}
-			}
-		}
-	}
+    /**
+     * Scans the given file and populates the tree with
+     */
+    public void populateParseTree() {
+        while (in.hasNextLine()) {
+            String line = in.nextLine();
+            line = line.replaceAll("\\(", " \\( ");
+            line = line.replaceAll("\\)", " \\) ");
+            String[] linearray = line.split(" ");
+            for (int i = 0; i < linearray.length; i++) {
+                if (linearray[i].compareTo(";") == 0) { // comment nullification
+                    i = linearray.length + 1;
+                } else if (linearray[i].length() < 1) {
+                } else {
+                    String item = "";
+                    if (linearray[i].compareTo("'") == 0) {// 0
+                        item += "'";
+                        i++;// 0->1
+                        if (linearray[i++].compareTo("(") == 0) {// 1->2
+                            item += "(";
+                            while (linearray[i].compareTo(")") != 0) {// 234
+                                item += linearray[i++];
+                            }
+                            item += ")";
+                        }
+                        else
+                        {
+                            item += linearray[i];
+                        }
+                    } else {
+                        item = linearray[i];
+                    }
+                    Token piece = new Token(item);
+                    identify(piece);// add type to token
+                    tree.add(piece);// add token to parsetree
+                }
+            }
+        }
+    }
 }
