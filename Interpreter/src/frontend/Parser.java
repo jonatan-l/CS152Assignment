@@ -142,7 +142,6 @@ public class Parser {
 			}
 		}
         tok.setType("Symbol");
-        map.add(currentToken, currentToken);//add to symbol table
         return true;
 	}
 
@@ -208,11 +207,15 @@ public class Parser {
 		String value = item.getValue();
         if(isReservedWord(value, item) ||
            checkSpecial(value, item) ||
-           isValidUnsignedInt(value, item) ||
-           isValidNumber(value, item) ||
-           isValidString(value, item) ||
-           isValidVar(value, item))
+           isValidUnsignedInt(value, item))
         {
+        }
+        else
+        {
+            isValidString(value, item);
+            isValidVar(value, item);
+            isValidNumber(value, item);
+            map.add(value, value);//add to symbol table
         }
         return item;
 	}
