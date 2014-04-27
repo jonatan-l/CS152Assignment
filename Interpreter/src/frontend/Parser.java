@@ -32,7 +32,7 @@ public class Parser {
 	private Scanner in;
 	private ParseTree tree;
 	private SymbolTable map;
-    private String exceptionMessage;
+
 	public Parser(File f) throws FileNotFoundException {
 		in = new Scanner(f);
 		tree = new ParseTree();
@@ -46,12 +46,10 @@ public class Parser {
 		for (int i = 0; i < keywords.length; i++) {
 			if (currentToken.compareToIgnoreCase(keywords[i]) == 0) {
                 tok.setType("Keyword");
-                exceptionMessage = "";
                 return true;
 			}
 		}
         tok.setType("Undefined");
-        exceptionMessage = "This is Not a Reserved Key Word!";
 		return false;
 	}
 	
@@ -70,7 +68,6 @@ public class Parser {
         // more than 2 double quoted symbols.
         if (currentToken.isEmpty()) {
             tok.setType("Undefined");
-            exceptionMessage = "Argument can not be Empty!";
             return false;
         }
 
@@ -90,7 +87,6 @@ public class Parser {
             if ((!valSchemeSymbols(currentToken.charAt(i))
                     && !isLetterOrDigit(currentToken.charAt(i)) && (currentToken.charAt(i) != '\'' && currentToken.charAt(i) != '\"'))) {
                 tok.setType("Undefined");
-                exceptionMessage = "Strings can not begin with a number and can not have () at any place in string!";
                 return false;
             }
             else if (currentToken.charAt(i) == '\"') {
@@ -100,19 +96,16 @@ public class Parser {
                     (!startsWithDoubleQuote && !startsWithSingleQuote && numOfDoubleQuotes >= 1))
             {
                 tok.setType("Undefined");
-                exceptionMessage = "More than 2 \" marks are not allowed, except for beginning and end";
                 return false;
             }
             if ((startsWithDoubleQuote == true && startsWithSingleQuote == false) &&
                     (currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes >= 1)))
             {
                 tok.setType("Undefined");
-                exceptionMessage = "More than 2 \" marks or only one \" mark are not allowed.";
                 return false;
             }
         }
         tok.setType("String");
-        exceptionMessage = "";
         return true;
     }
 
@@ -133,7 +126,6 @@ public class Parser {
 	{
 		if (currentToken.length() == 0) {
             tok.setType("Undefined");
-			exceptionMessage = "Argument can not be Empty!";
             return false;
 		}
 
@@ -147,15 +139,11 @@ public class Parser {
                     !isLetterOrDigit(currentToken.charAt(i))) || (!isLetterOrDigit(currentToken.charAt(i))
                     && !valSchemeSymbols(currentToken.charAt(i)))))) {
                 tok.setType("Undefined");
-				exceptionMessage = "Variables can not start with a number!\n"
-								+ "It can start with !@#$%^&*-+=./<>:~?_ or a letter!\n"
-								+ "It may be followed by any number,letter or previously shown symbols!";
                 return false;
 			}
 		}
         tok.setType("Symbol");
         map.add(currentToken, currentToken);//add to symbol table
-		exceptionMessage = "";
         return true;
 	}
 
@@ -164,19 +152,16 @@ public class Parser {
 	{
 		if (currentToken.length() == 0) {
             tok.setType("Undefined");
-			exceptionMessage = "Argument can not be Empty!";
             return false;
 		}
 
 		for (int i = 0; i < currentToken.length(); i++) {
 			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')) {
                 tok.setType("Undefined");
-                exceptionMessage = "This is not an Unsigned Integer!";
                 return false;
 			}
 		}
 		tok.setType("Unsigned Int");
-        exceptionMessage = "";
 		return true; // Returns true if it is a valid unsigned integer
 	}
 
@@ -186,7 +171,6 @@ public class Parser {
 	    if (currentToken.length() == 0)
         {
             tok.setType("Undefined");
-            exceptionMessage = "Argument can not be Empty!";
             return false;
         }
 		boolean foundDotAlready = false;
@@ -197,7 +181,6 @@ public class Parser {
 				&& (currentToken.charAt(i) == '.' && foundDotAlready))
             {
               tok.setType("Undefined");
-			  exceptionMessage = "This is not a number!";
               return false;
             }
 			else if (currentToken.charAt(i) == '.')
@@ -206,7 +189,6 @@ public class Parser {
 			}
 		}
         tok.setType("Number");
-        exceptionMessage = "";
 		return true; // Returns the true if currentToken is indeed a number
 	}
 
@@ -215,20 +197,16 @@ public class Parser {
 		for (int i = 0; i < specialchars.length; i++) {
 			if (item.compareToIgnoreCase(specialchars[i]) == 0) {
                 tok.setType("Special Symbol");
-                exceptionMessage = "";
 				return true;
 			}
 		}
         tok.setType("Undefined");
-        exceptionMessage = "This is Not a Special Symbol!\nExamples special symbols: ()[]{};,.\"'#\\";
         return false;
 	}
 
 	private Token identify(Token item) throws IllegalArgumentException
     {
 		String value = item.getValue();
-        int nonApplicable = 0;
-        String exceptionSummary = "";
         if(isReservedWord(value, item) ||
            checkSpecial(value, item) ||
            isValidUnsignedInt(value, item) ||
@@ -236,16 +214,8 @@ public class Parser {
            isValidString(value, item) ||
            isValidVar(value, item))
         {
-            nonApplicable++;
         }
-        else exceptionSummary += exceptionMessage + "\n";
-
-        if(nonApplicable == 6)
-        {
-            throw new IllegalArgumentException(exceptionSummary);
-        }
-        else nonApplicable = 0;
-		return item;
+        return item;
 	}
 
 	/**
