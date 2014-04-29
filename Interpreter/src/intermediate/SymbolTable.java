@@ -1,5 +1,7 @@
 package intermediate;
 
+import sun.reflect.generics.tree.Tree;
+
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.TreeMap;
@@ -10,11 +12,10 @@ public class SymbolTable {
     public SymbolTable() {
         map = new TreeMap<String, String>();
     }
-
     public void add(String key, String value) {
         map.put(key, value);
     }
-
+    public TreeMap<String,String> getMap(){ return map; }
     public String getValue(String key) {
         return (String) map.get(key);
     }
