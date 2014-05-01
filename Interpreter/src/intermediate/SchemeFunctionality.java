@@ -1,5 +1,5 @@
 package intermediate;
-
+import
 import frontend.Token;
 
 public class SchemeFunctionality
@@ -29,7 +29,26 @@ public class SchemeFunctionality
         }
         return null;
     }
-    public int SchemeAdd(Token a,Token b)
+    public int SchemeAdd(Token a, Token b)
+    {
+        if(a.getType().equals("Unsigned Int"))
+        {
+
+        }
+    }
+    public int SchemeSubtr(Token a, Token b)
+    {
+
+    }
+    public int SchemeMult(Token a, Token b)
+    {
+
+    }
+    public int SchemeDiv(Token a, Token b)
+    {
+
+    }
+    public int SchemePow(Token a, Token b)
     {
 
     }
