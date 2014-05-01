@@ -1,5 +1,5 @@
 package intermediate;
-import
+import java.lang.Character;
 import frontend.Token;
 
 public class SchemeFunctionality
