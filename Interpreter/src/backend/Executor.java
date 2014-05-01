@@ -112,47 +112,86 @@ public class Executor
 			return true;
 	}
 
-	public int addMethod(Pair p){//use root can add as many as we need to -recursive...base case!!! cdr empty add 0
+	public int addIntegerMethod(Pair p){//use root can add as many as we need to -recursive...base case!!! cdr empty add 0
 		
 		if(p == null){
 			return 0;
 		}
 		else if(!p.getCar().isAtom()){
-			return Integer.parseInt(run((Pair)p.getCar()).toString()) + addMethod(p.getCdr());//will run() return int for this?
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) + addIntegerMethod(p.getCdr());//will run() return int for this?
 		}
 		else
         {
-			return Integer.parseInt(((Token)p.getCar()).getValue()) + addMethod(p.getCdr());//p.getCar() is atom -integer-
+			return Integer.parseInt(((Token)p.getCar()).getValue()) + addIntegerMethod(p.getCdr());//p.getCar() is atom -integer-
 		}
 	}//is car is a pair - call main run on it
 	
-	public int subMethod(Pair p){
+	public int subIntegerMethod(Pair p){
 		
 		if(p == null){
 			return 0;
 		}
 		else if(!p.getCar().isAtom()){
-			return Integer.parseInt(run((Pair)p.getCar()).toString()) - subMethod(p.getCdr());
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) - subIntegerMethod(p.getCdr());
 		}
 		else
         {
-			return Integer.parseInt(((Token)p.getCar()).getValue()) - subMethod(p.getCdr());
+			return Integer.parseInt(((Token)p.getCar()).getValue()) - subIntegerMethod(p.getCdr());
 		}
 	}
 	
-	public int multiplyMethod(Pair p){
+	public int multiplyIntegerMethod(Pair p){
 		if(p == null){
 			return 1;
 		}
 		else if(!p.getCar().isAtom()){
-			return Integer.parseInt(run((Pair)p.getCar()).toString()) * multiplyMethod(p.getCdr());
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) * multiplyIntegerMethod(p.getCdr());
 		}
 		else
         {
-			return Integer.parseInt(((Token)p.getCar()).getValue()) * multiplyMethod(p.getCdr());
+			return Integer.parseInt(((Token)p.getCar()).getValue()) * multiplyIntegerMethod(p.getCdr());
 		}
 	}
-	
+    public float addNumberMethod(Pair p){//use root can add as many as we need to -recursive...base case!!! cdr empty add 0
+
+        if(p == null){
+            return 0;
+        }
+        else if(!p.getCar().isAtom()){
+            return Float.parseFloat(run((Pair)p.getCar()).toString()) + addNumberMethod(p.getCdr());//will run() return int for this?
+        }
+        else
+        {
+            return Float.parseFloat(((Token)p.getCar()).getValue()) + addNumberMethod(p.getCdr());//p.getCar() is atom -integer-
+        }
+    }//is car is a pair - call main run on it
+
+    public float subNumberMethod(Pair p){
+
+        if(p == null){
+            return 0;
+        }
+        else if(!p.getCar().isAtom()){
+            return Float.parseFloat(run((Pair)p.getCar()).toString()) - subNumberMethod(p.getCdr());
+        }
+        else
+        {
+            return Float.parseFloat(((Token)p.getCar()).getValue()) - subNumberMethod(p.getCdr());
+        }
+    }
+
+    public float multiplyNumberMethod(Pair p){
+        if(p == null){
+            return 1;
+        }
+        else if(!p.getCar().isAtom()){
+            return Float.parseFloat(run((Pair)p.getCar()).toString()) * multiplyNumberMethod(p.getCdr());
+        }
+        else
+        {
+            return Float.parseFloat(((Token)p.getCar()).getValue()) * multiplyNumberMethod(p.getCdr());
+        }
+    }
 	public boolean andMethod(Pair p){
 		
 		if(p.getCdr().getCar() == null){
