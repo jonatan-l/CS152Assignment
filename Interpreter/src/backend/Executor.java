@@ -1,4 +1,7 @@
 package backend;
+import java.lang.Character;
+import frontend.Token;
+import intermediate.Pair;
 
 public class Executor
 {
@@ -6,8 +9,56 @@ public class Executor
 	public Object run(Pair p){
 		
 	}
-	
-	public Atom car(Pair p){
+
+    public Pair cdr(Pair currentRoot)
+    {
+        if(currentRoot == null)
+        {
+            return null;
+        }
+        if(currentRoot.getCdr().isAtom()) //Checks if an Atom is a Pair(true) pr Atom (false)
+        {
+            return currentRoot.getCdr();
+        }
+        return null;
+    }
+    public Token car(Pair currentRoot)
+    {
+        if(currentRoot == null)
+        {
+            return null;
+        }
+        if(currentRoot.getCar().isAtom()) //Checks if an Atom is a Token (true) or Pair(false)
+        {
+            return (Token)currentRoot.getCar();
+        }
+        return null;
+    }
+    public int SchemeAdd(Token a, Token b)
+    {
+        if(a.getType().equals("Unsigned Int"))
+        {
+
+        }
+    }
+    public int SchemeSubtr(Token a, Token b)
+    {
+
+    }
+    public int SchemeMult(Token a, Token b)
+    {
+
+    }
+    public int SchemeDiv(Token a, Token b)
+    {
+
+    }
+    public int SchemePow(Token a, Token b)
+    {
+
+    }
+
+    public Atom car(Pair p){
 		
 		return p.getCar();
 	}
