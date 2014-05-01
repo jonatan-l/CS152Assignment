@@ -1,5 +1,7 @@
 package intermediate;
 
+import frontend.Token;
+
 public class SchemeFunctionality
 {
     public SchemeFunctionality(){}
@@ -26,6 +28,10 @@ public class SchemeFunctionality
             return currentRoot.getCar();
         }
         return null;
+    }
+    public int SchemeAdd(Token a,Token b)
+    {
+
     }
 
 }
