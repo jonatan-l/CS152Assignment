@@ -92,8 +92,8 @@ public class Executor
 		
 	}
 	
-	public boolean testInteger(Pair p){
-		if(){
+		public boolean testInteger(Pair p){
+		if((p.getCdr().getValue() % 1) == 0){
 			return true;
 		}
 		else
@@ -101,11 +101,19 @@ public class Executor
 	}
 	
 	public boolean testFloat(Pair p){
-		
+		if(!(p.getCdr().getValue() % 1) != 0){
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public boolean testBoolean(Pair p){
-		
+		if( (p.getCdr().equals("#t")) || (p.getCdr().equals("#f")) ){
+			return true;
+		}
+		else
+			return false;
 	}
 	
 	public boolean testChar(Pair p){
