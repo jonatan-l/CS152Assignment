@@ -1,13 +1,14 @@
 package backend;
-import java.lang.Character;
 import frontend.Token;
 import intermediate.Pair;
+import intermediate.Atom;
+import intermediate.SymbolTable;
 
 public class Executor
 {
 
 	public Object run(Pair p){
-		
+		return p;
 	}
 
     public Pair cdr(Pair currentRoot)
@@ -34,50 +35,15 @@ public class Executor
         }
         return null;
     }
-    public int SchemeAdd(Token a, Token b)
+
+	public Pair cons(Pair p)
     {
-        if(a.getType().equals("Unsigned Int"))
-        {
-
-        }
-    }
-    public int SchemeSubtr(Token a, Token b)
-    {
-
-    }
-    public int SchemeMult(Token a, Token b)
-    {
-
-    }
-    public int SchemeDiv(Token a, Token b)
-    {
-
-    }
-    public int SchemePow(Token a, Token b)
-    {
-
-    }
-
-    public Atom car(Pair p){
-		
-		return p.getCar();
+		return null;
 	}
 	
-	public Pair car(Pair p){
-		return p.getCar();
-	}
-	
-	public Pair cdr(Pair p){
-		
-		return p.getCdr();
-	}
-	
-	public Pair cons(Pair p){
-		
-	}
-	
-	public list(){
-		
+	public boolean isList()
+    {
+	    return false;
 	}
 	
 	public boolean testNull(Pair p){
@@ -88,12 +54,23 @@ public class Executor
 			return false;
 	}
 	
-	public String testSymbol(Pair p){
-		
+	public boolean testSymbol(Pair p)
+    {
+        String[] specialchars = { "(", ")", "[", "]", "{", "}", ";", ",",
+                ".", "\"", "'", "#", "\\" };
+        for(int i = 0; i < specialchars.length; i++)
+        {
+            if(p.getCdr().isAtom() && ((Token)((Atom)p.getCdr())).getValue().equals(specialchars[i]))
+            {
+               return true;
+            }
+        }
+        return false;
 	}
 	
 		public boolean testInteger(Pair p){
-		if((p.getCdr().getValue() % 1) == 0){
+		if(Integer.parseInt(((Token)((Atom)p.getCdr())).getValue()) % 1 == 0)
+        {
 			return true;
 		}
 		else
@@ -101,7 +78,7 @@ public class Executor
 	}
 	
 	public boolean testFloat(Pair p){
-		if(!(p.getCdr().getValue() % 1) != 0){
+		if(Float.parseFloat(((Token)((Atom)p.getCdr())).getValue()) % (float)1.0 != (float)0.0){
 			return true;
 		}
 		else
@@ -109,19 +86,22 @@ public class Executor
 	}
 	
 	public boolean testBoolean(Pair p){
-		if( (p.getCdr().equals("#t")) || (p.getCdr().equals("#f")) ){
+		if( ((Token)((Atom)p.getCdr())).getValue().equals("#t")||
+                ((Token)((Atom)p.getCdr())).getValue().equals("#f")){
 			return true;
 		}
 		else
 			return false;
 	}
 	
-	public boolean testChar(Pair p){
-		
+	public boolean testChar(Pair p)
+    {
+		return false;
 	}
 	
-	public boolean testString(Pair p){
-		
+	public boolean testString(Pair p)
+    {
+		return false;
 	}
 	
 	public boolean testPair(Pair p){//(a) also a pair
@@ -131,17 +111,18 @@ public class Executor
 		else
 			return true;
 	}
-	
+
 	public int addMethod(Pair p){//use root can add as many as we need to -recursive...base case!!! cdr empty add 0
 		
 		if(p == null){
 			return 0;
 		}
 		else if(!p.getCar().isAtom()){
-			return add((run(p.getCar())), addMethod(p.getCdr()));//will run() return int for this?
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) + addMethod(p.getCdr());//will run() return int for this?
 		}
-		else{
-			return add(p.getCar().getValue(), addMethod(p.getCdr()));//p.getCar() is atom -integer-
+		else
+        {
+			return Integer.parseInt(((Token)p.getCar()).getValue()) + addMethod(p.getCdr());//p.getCar() is atom -integer-
 		}
 	}//is car is a pair - call main run on it
 	
@@ -151,22 +132,24 @@ public class Executor
 			return 0;
 		}
 		else if(!p.getCar().isAtom()){
-			return subtract((run(p.getCar())), subMethod(p.getCdr()));
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) - subMethod(p.getCdr());
 		}
-		else{
-			return subtract(p.getCar().getValue(), subMethod(p.getCdr()));
+		else
+        {
+			return Integer.parseInt(((Token)p.getCar()).getValue()) - subMethod(p.getCdr());
 		}
 	}
 	
-	public int multiMethod(Pair p){
+	public int multiplyMethod(Pair p){
 		if(p == null){
 			return 1;
 		}
 		else if(!p.getCar().isAtom()){
-			return multiple((run(p.getCar())), multiplyMethod(p.getCdr()));
+			return Integer.parseInt(run((Pair)p.getCar()).toString()) * multiplyMethod(p.getCdr());
 		}
-		else{
-			return multiple(p.getCar().getValue(), multiplyMethod(p.getCdr()));
+		else
+        {
+			return Integer.parseInt(((Token)p.getCar()).getValue()) * multiplyMethod(p.getCdr());
 		}
 	}
 	
@@ -175,7 +158,8 @@ public class Executor
 		if(p.getCdr().getCar() == null){
 			return true;
 		}
-		else if((boolean)(run(p.getCdr().getCar())) && (boolean)(run(p.getCdr().getCdr()))){
+		else if(Boolean.parseBoolean(run(((Pair)p.getCdr().getCar())).toString()) &&
+                Boolean.parseBoolean(run(p.getCdr().getCdr()).toString())){
 			return true;
 		}
 		else
@@ -188,13 +172,11 @@ public class Executor
 			return false;
 		}
 		if(p.getCar() != null && p.getCdr() == null){//end of expressions
-			return (boolean) run(p.getCar());
+			return Boolean.parseBoolean(run(((Pair)p.getCar())).toString());
 		}
-		else if((boolean) run(p.getCar()) == true && p.getCdr() != null){
+		else if(Boolean.parseBoolean(run(((Pair)p.getCar())).toString()) == true && p.getCdr() != null){
 			return orMethod(p.getCdr());
 		}
-		
-		
+        return false;
 	}
-
 }
