@@ -97,6 +97,12 @@ public class Parser {
                 tok.setType("Undefined");
                 return false;
             }
+            if((startsWithDoubleQuote == true && startsWithSingleQuote == false) && ((i < currentToken.length() - 1 && currentToken.charAt(i) == '#' && currentToken.charAt(i + 1) != '\'') ||
+            i == currentToken.length() - 1 && currentToken.charAt(i) == '#'))
+            {
+                tok.setType("Undefined");
+                return false;
+            }
             if ((startsWithDoubleQuote == true && startsWithSingleQuote == false) &&
                     (currentToken.charAt(currentToken.length() - 1) != '\"' && (numOfDoubleQuotes >= 1)))
             {
@@ -153,8 +159,16 @@ public class Parser {
             return false;
 		}
 
-		for (int i = 0; i < currentToken.length(); i++) {
-			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')) {
+        if(currentToken.charAt(0) != '-' && !(currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9'))
+        {
+            return false;
+        }
+
+        for (int i = 0; i < currentToken.length(); i++)
+        {
+			if ((i > 0 && currentToken.charAt(i) == '-') || (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9') &&
+                          currentToken.charAt(i) != '-'))
+            {
                 tok.setType("Undefined");
                 return false;
 			}
@@ -172,11 +186,15 @@ public class Parser {
             return false;
         }
 		boolean foundDotAlready = false;
-
-		for (int i = 0; i < currentToken.length(); i++)
+        if(currentToken.charAt(0) != '-' && !(currentToken.charAt(0) >= '0' && currentToken.charAt(0) <= '9'))
+        {
+            return false;
+        }
+        for (int i = 1; i < currentToken.length(); i++)
         {
 			if (!(currentToken.charAt(i) >= '0' && currentToken.charAt(i) <= '9')
-				&& (currentToken.charAt(i) == '.' && foundDotAlready))
+				&& (currentToken.charAt(i) == '.' && foundDotAlready || currentToken.charAt(i) == '-' ||
+                   (currentToken.charAt(i) == '.' && i == currentToken.length() - 1)))
             {
               tok.setType("Undefined");
               return false;
