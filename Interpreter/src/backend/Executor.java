@@ -36,7 +36,7 @@ public class Executor
         return null;
     }
 
-	public Pair cons(Pair p)
+	public Pair cons(Pair a, Pair b)
     {
 		return null;
 	}
