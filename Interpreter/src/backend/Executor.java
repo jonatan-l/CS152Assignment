@@ -36,9 +36,9 @@ public class Executor
         return null;
     }
 
-	public Pair cons(Pair a, Pair b)
+	public Pair cons(Pair p)
     {
-		return null;
+		return new Pair(p.getCar(),p.getCdr());
 	}
 	
 	public boolean isList()
