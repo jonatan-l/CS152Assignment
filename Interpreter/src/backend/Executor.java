@@ -40,9 +40,13 @@ public class Executor
     {
 		return new Pair(p.getCar(),p.getCdr());
 	}
-	
-	public boolean isList()
+
+	public boolean isList(Pair p)
     {
+        if(!p.getCar().isAtom() || !p.getCar().isAtom())
+        {
+            return true;
+        }
 	    return false;
 	}
 	
