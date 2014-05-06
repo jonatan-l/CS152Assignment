@@ -12,7 +12,7 @@ public class SymbolTableStack
    }
    public void add(SymbolTable newTable)
    {
-       symbolStack.add(symbolStack.size(),newTable);
+       symbolStack.add(newTable);
    }
    public SymbolTable getSymbTable(int i){
        return symbolStack.get(i);
