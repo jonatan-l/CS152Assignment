@@ -190,6 +190,20 @@ public class Executor
 		return true;
 	}
 	
+	public boolean testEqualSymbol(Pair p){
+		
+		if(p.getCdr() == null){
+			return false;
+		}
+		else if(p.getCar() != null && p.getCdr() == null){
+			return true;
+		}
+		else if(p.getCar().getValue() == p.getCdr().getCar().getValue()){
+			return testEqualSymbol(p.getCdr());
+			
+		}
+	}
+	
 	public boolean testPair(Pair p){//(a) also a pair
 		if(p == null)
         {
