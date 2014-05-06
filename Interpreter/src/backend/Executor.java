@@ -16,6 +16,7 @@ public class Executor //The Class That Runs Scheme Code
         {
             if(((Token)p.getCar()).getType().equals("Number"))
             {
+
                 addNumberMethod(p.getCdr());
             }
             else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
@@ -198,6 +199,30 @@ public class Executor //The Class That Runs Scheme Code
         cons(p.getCdr()); //Pass in the Cdr of pair
         return new Pair(); //return the final Pair
 	}
+
+    public Pair makeList(Pair p)
+    {
+        String list = "";
+        list = buildList(p, "");
+        list = "(" + list + ")";
+        Token l = new Token(list);
+        Pair lst = new Pair(l);
+        return lst;
+    }
+
+    public String buildList(Pair p, String s){
+
+        if(p != null && p.getCdr() == null){
+            s = s + ((Token)p.getCar()).getValue();
+            return s;
+        }
+        else if(p != null && p.getCdr() != null){
+            s = s + ((Token)p.getCar()).getValue();
+            return buildList(p.getCdr(), s);
+        }
+        else
+            return s;
+    }
 
 	public boolean isList(Pair p)
     {
