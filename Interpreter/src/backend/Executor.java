@@ -6,6 +6,10 @@ import intermediate.SymbolTable;
 
 public class Executor //The Class That Runs Scheme Code
 {
+    public void ReadParseTree(Pair root)
+    {
+
+    }
 	public Object run(Pair p)
     {
         if(p == null){ return null; }
