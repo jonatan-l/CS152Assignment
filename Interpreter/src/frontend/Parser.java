@@ -233,7 +233,6 @@ public class Parser {
             isValidString(value, item);
             isValidVar(value, item);
             isValidNumber(value, item);
-            map.add(value, value);//add to symbol table
         }
         return item;
 	}

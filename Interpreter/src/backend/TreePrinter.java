@@ -13,11 +13,11 @@ public class TreePrinter {
 
     public void print(Pair t){
         if(t.getCar() == null){
-            System.out.println("\\)");
+            System.out.println(")");
             System.out.println();
         }
         else if(!t.getCar().isAtom()){//false ---- ! or not
-            System.out.println("\\(");
+            System.out.println("(");
             print((Pair) t.getCar());//manual type change?
             print(t.getCdr());
         }
