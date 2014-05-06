@@ -29,12 +29,11 @@ public class ParseTree {
         end = end.add(item);
     }
 
-    public void add(Token lst){
-        //System.out.println(lst.getValue());
+    public Pair add(Token lst)
+    {
         //need method that gives next item as a token
         if(lst.getValue().compareTo("\\)") == 0){
-            end = stack.remove(stack.size() - 1);
-            return;//base case closing back up and resets end to last part of stack
+            end = stack.remove(stack.size() - 1); //base case closing back up and resets end to last part of stack
         }
         if(lst.getValue().compareTo("\\(")== 0){
             Pair left = new Pair();//new list in left pair
@@ -43,6 +42,6 @@ public class ParseTree {
         else{
             end = end.add(lst);//add token
         }
-        //populate(lst.getCdr()); //run on right pair
+        return end;
     }
 }

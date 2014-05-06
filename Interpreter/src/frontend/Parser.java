@@ -5,6 +5,7 @@ import intermediate.SymbolTable;
 import java.util.Scanner;
 import static java.lang.Character.*;
 import java.io.File;
+import intermediate.Pair;
 import java.io.FileNotFoundException;
 /*
  For Assignment #5, put your parser and scanner classes in the frontend package.
@@ -32,11 +33,12 @@ public class Parser {
 	private Scanner in;
 	private ParseTree tree;
 	private SymbolTable map;
-
+    private Pair grab;
 	public Parser(File f) throws FileNotFoundException {
 		in = new Scanner(f);
 		tree = new ParseTree();
 		map = new SymbolTable();
+        grab = null;
 		populateParseTree();
 	}
 
@@ -241,17 +243,19 @@ public class Parser {
      * Scans the given file and populates the tree with
      */
     public void populateParseTree() {
+        int counter = 0;
         while (in.hasNextLine()) {
             String line = in.nextLine();
             line = line.replaceAll("\\(", " \\( ");
             line = line.replaceAll("\\)", " \\) ");
             String[] linearray = line.split(" ");
+            String item = "";
             for (int i = 0; i < linearray.length; i++) {
                 if (linearray[i].compareTo(";") == 0) { // comment nullification
                     i = linearray.length + 1;
                 } else if (linearray[i].length() < 1) {
                 } else {
-                    String item = "";
+                    item = "";
                     if (linearray[i].compareTo("'") == 0) {// 0
                         item += "'";
                         i++;// 0->1
@@ -271,7 +275,16 @@ public class Parser {
                     }
                     Token piece = new Token(item);
                     identify(piece);// add type to token
-                    tree.add(piece);// add token to parsetree
+                    Pair test = tree.add(piece);// add token to parsetree
+                    if(piece.equals("define"))
+                    {
+                        counter = 1;
+                    }
+                    else if(counter == 1)
+                    {
+                        grab = test;
+                        counter = 0;
+                    }
                 }
             }
         }
