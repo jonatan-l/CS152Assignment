@@ -3,9 +3,15 @@ import frontend.Token;
 import intermediate.Pair;
 import intermediate.Atom;
 import intermediate.SymbolTable;
+import intermediate.SymbolTableStack;
 
 public class Executor //The Class That Runs Scheme Code
 {
+    private SymbolTableStack symbolStack;
+    public Executor()
+    {
+        symbolStack = new SymbolTableStack();
+    }
 	public Object run(Pair p)
     {
         if(p == null){ return null; }
@@ -16,7 +22,7 @@ public class Executor //The Class That Runs Scheme Code
         {
             if(((Token)p.getCar()).getType().equals("Number"))
             {
-
+                symbolStack.add();
                 addNumberMethod(p.getCdr());
             }
             else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
