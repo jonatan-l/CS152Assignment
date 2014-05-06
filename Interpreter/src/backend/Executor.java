@@ -11,9 +11,10 @@ public class Executor
         if(p == null){ return null; }
 
         String operation = ((Token)p.getCar()).getValue();
+
         if(operation.equals("+"))
         {
-
+            
         }
         else if(operation.equals("-"))
         {
@@ -31,7 +32,63 @@ public class Executor
         {
 
         }
+        else if(operation.equals("=")) //Not Assignment, its a TEST
+        {
+
+        }
         else if(operation.equals("cons"))
+        {
+
+        }
+        else if(operation.equals("list"))
+        {
+
+        }
+        else if(operation.equals("null?"))
+        {
+
+        }
+        else if(operation.equals("char?"))
+        {
+
+        }
+        else if(operation.equals("integer?"))
+        {
+
+        }
+        else if(operation.equals("string?"))
+        {
+
+        }
+        else if(operation.equals("number?"))
+        {
+
+        }
+        else if(operation.equals("boolean?"))
+        {
+
+        }
+        else if(operation.equals("symbol?"))
+        {
+
+        }
+        else if(operation.equals("list?"))
+        {
+
+        }
+        else if(operation.equals("equals?"))
+        {
+
+        }
+        else if(operation.equals("pair?"))
+        {
+
+        }
+        else if(operation.equals("and"))
+        {
+
+        }
+        else if(operation.equals("or"))
         {
 
         }
@@ -198,10 +255,11 @@ public class Executor
 		else if(p.getCar() != null && p.getCdr() == null){
 			return true;
 		}
-		else if(p.getCar().getValue() == p.getCdr().getCar().getValue()){
+		else if(((Token)p.getCar()).getValue() == ((Token)p.getCdr().getCar()).getValue()){
 			return testEqualSymbol(p.getCdr());
 			
 		}
+        return false;
 	}
 	
 	public boolean testPair(Pair p){//(a) also a pair
