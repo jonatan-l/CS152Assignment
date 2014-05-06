@@ -70,7 +70,7 @@ public class Executor
 
 	public boolean isList(Pair p)
     {
-        if(!p.getCar().isAtom() || !p.getCdr().isAtom())
+        if(p.getCar() != null)
         {
             return true;
         }
