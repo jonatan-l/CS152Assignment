@@ -4,7 +4,7 @@ import intermediate.Pair;
 import intermediate.Atom;
 import intermediate.SymbolTable;
 
-public class Executor //The Class That Runs Scheme
+public class Executor //The Class That Runs Scheme Code
 {
 	public Object run(Pair p)
     {
