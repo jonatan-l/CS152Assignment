@@ -244,6 +244,7 @@ public class Parser {
      */
     public void populateParseTree() {
         int counter = 0;
+        String key;
         while (in.hasNextLine()) {
             String line = in.nextLine();
             line = line.replaceAll("\\(", " \\( ");
@@ -278,12 +279,16 @@ public class Parser {
                     Pair test = tree.add(piece);// add token to parsetree
                     if(piece.equals("define"))
                     {
-                        counter = 1;
+                        counter = 2;
                     }
                     else if(counter == 1)
                     {
-                        grab = test;
+                        map.add(key,test);
                         counter = 0;
+                    }
+                    else if(counter == 2){
+                    	key = item;
+                    	counter == 1;
                     }
                 }
             }
