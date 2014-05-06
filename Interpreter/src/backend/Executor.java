@@ -38,7 +38,7 @@ public class Executor
 
 	public String cons(Pair p)
     {
-        if(p.getCar() == null)
+        if(p == null)
         {
             //Return the final string of the result
         }
@@ -70,7 +70,11 @@ public class Executor
 
 	public boolean isList(Pair p)
     {
-        if(p.getCar() != null)
+        if(p == null)
+        {
+            return false;
+        }
+        else if(p.getCar() != null)
         {
             return true;
         }
@@ -89,6 +93,7 @@ public class Executor
     {
         String[] specialchars = { "(", ")", "[", "]", "{", "}", ";", ",",
                 ".", "\"", "'", "#", "\\" };
+        if(p == null) { return false; }
         for(int i = 0; i < specialchars.length; i++)
         {
             if(p.getCdr().isAtom() && ((Token)((Atom)p.getCdr())).getValue().equals(specialchars[i]))
@@ -99,7 +104,9 @@ public class Executor
         return false;
 	}
 	
-		public boolean testInteger(Pair p){
+	public boolean testInteger(Pair p)
+    {
+        if(p == null){ return false; }
 		if(Integer.parseInt(((Token)((Atom)p.getCdr())).getValue()) % 1 == 0)
         {
 			return true;
@@ -109,6 +116,10 @@ public class Executor
 	}
 	
 	public boolean testFloat(Pair p){
+        if(p == null)
+        {
+            return false;
+        }
 		if(Float.parseFloat(((Token)((Atom)p.getCdr())).getValue()) % (float)1.0 != (float)0.0){
 			return true;
 		}
@@ -117,6 +128,10 @@ public class Executor
 	}
 	
 	public boolean testBoolean(Pair p){
+        if(p == null)
+        {
+            return false;
+        }
 		if( ((Token)((Atom)p.getCdr())).getValue().equals("#t")||
                 ((Token)((Atom)p.getCdr())).getValue().equals("#f")){
 			return true;
@@ -127,16 +142,33 @@ public class Executor
 	
 	public boolean testChar(Pair p)
     {
+        if(p == null){ return false; }
+        else if(Character.isLetter(((Token)p.getCar()).getValue().charAt(0)))
+        {
+            return true;
+        }
 		return false;
 	}
 	
 	public boolean testString(Pair p)
     {
-		return false;
+        if(p == null){ return false; }
+        for(int i = 0; i < ((Token)p.getCar()).getValue().length(); i++)
+        {
+            if(!Character.isLetter(((Token)p.getCar()).getValue().charAt(i)))
+            {
+                return false;
+            }
+        }
+		return true;
 	}
 	
 	public boolean testPair(Pair p){//(a) also a pair
-		if(p.getCdr() == null){
+		if(p == null)
+        {
+            return false;
+        }
+        else if(p.getCdr() == null){
 			return false;
 		}
 		else
@@ -210,7 +242,7 @@ public class Executor
     public double addNumberMethod(Pair p){//use root can add as many as we need to -recursive...base case!!! cdr empty add 0
 
         if(p == null){
-            return 0;
+            return 0.0;
         }
         else if(!p.getCar().isAtom()){
             return Double.parseDouble(run((Pair)p.getCar()).toString()) + addNumberMethod(p.getCdr());//will run() return int for this?
@@ -224,7 +256,7 @@ public class Executor
     public double subNumberMethod(Pair p){
 
         if(p == null){
-            return 0;
+            return 0.0;
         }
         else if(!p.getCar().isAtom()){
             return Double.parseDouble(run((Pair)p.getCar()).toString()) - subNumberMethod(p.getCdr());
@@ -237,7 +269,7 @@ public class Executor
 
     public double multiplyNumberMethod(Pair p){
         if(p == null){
-            return 1;
+            return 1.0;
         }
         else if(!p.getCar().isAtom()){
             return Double.parseDouble(run((Pair)p.getCar()).toString()) * multiplyNumberMethod(p.getCdr());
@@ -249,7 +281,7 @@ public class Executor
     }
     public double divideNumberMethod(Pair p){
         if(p == null){
-            return 1;
+            return 1.0;
         }
         else if(!p.getCar().isAtom()){
             return Double.parseDouble(run((Pair)p.getCar()).toString()) / multiplyIntegerMethod(p.getCdr());
@@ -261,7 +293,7 @@ public class Executor
     }
     public double powNumberMethod(Pair p){
         if(p == null){
-            return 1;
+            return 1.0;
         }
         else if(!p.getCar().isAtom()){
             return Math.pow(Double.parseDouble(run((Pair)p.getCar()).toString()),multiplyIntegerMethod(p.getCdr()));
@@ -272,8 +304,8 @@ public class Executor
         }
     }
 	public boolean andMethod(Pair p){
-		
-		if(p.getCdr().getCar() == null){
+		if(p == null){ return false; }
+		else if(p.getCdr().getCar() == null){
 			return true;
 		}
 		else if(Boolean.parseBoolean(run(((Pair)p.getCdr().getCar())).toString()) &&
@@ -285,8 +317,8 @@ public class Executor
 	}
 	
 	public boolean orMethod(Pair p){
-		
-		if(p.getCdr().getCar() == null){//call has no expressions
+		if(p == null){ return false; }
+		else if(p.getCdr().getCar() == null){//call has no expressions
 			return false;
 		}
 		if(p.getCar() != null && p.getCdr() == null){//end of expressions
