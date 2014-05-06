@@ -8,7 +8,7 @@ public class Executor //The Class That Runs Scheme Code
 {
     public void ReadParseTree(Pair root)
     {
-
+        
     }
 	public Object run(Pair p)
     {
@@ -74,6 +74,10 @@ public class Executor //The Class That Runs Scheme Code
         else if(operation.equals("=")) //Not Assignment, its a TEST
         {
             testEqualSymbol(p.getCdr());
+        }
+        else if(operation.equals("lambda"))
+        {
+            //lambdaMethod(p.getCdr());
         }
         else if(operation.equals("car"))
         {
