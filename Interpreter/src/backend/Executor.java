@@ -129,7 +129,7 @@ public class Executor //The Class That Runs Scheme Code
         }
         else if(operation.equals("equals?"))
         {
-
+            testEqual(p.getCdr());
         }
         else if(operation.equals("pair?"))
         {
@@ -297,7 +297,14 @@ public class Executor //The Class That Runs Scheme Code
         }
 		return true;
 	}
-	
+    public boolean testEqual(Pair p){
+
+        if(run(p) == run(p.getCdr())){
+            return true;
+        }
+        else
+            return false;
+    }
 	public boolean testEqualSymbol(Pair p){
 		
 		if(p.getCdr() == null){

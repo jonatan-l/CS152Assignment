@@ -14,12 +14,11 @@ public class SymbolTableStack
    {
        symbolStack.add(newTable);
    }
-   public SymbolTable getSymbTable(int i)
-   {
+   public SymbolTable getSymbTable(int i){
        return symbolStack.get(i);
    }
-   public void remSymbTable(int i)
+   public void remSymbTable()
    {
-       symbolStack.remove(i);
+       symbolStack.remove(0);
    }
 }
