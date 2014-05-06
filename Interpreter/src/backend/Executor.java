@@ -14,31 +14,66 @@ public class Executor
 
         if(operation.equals("+"))
         {
-            
+            if(((Token)p.getCar()).getType().equals("Number"))
+            {
+                addNumberMethod(p.getCdr());
+            }
+            else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
+            {
+                addIntegerMethod(p.getCdr());
+            }
         }
         else if(operation.equals("-"))
         {
-
+            if(((Token)p.getCar()).getType().equals("Number"))
+            {
+                subNumberMethod(p.getCdr());
+            }
+            else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
+            {
+                subIntegerMethod(p.getCdr());
+            }
         }
         else if(operation.equals("*"))
         {
-
+            if(((Token)p.getCar()).getType().equals("Number"))
+            {
+                multiplyNumberMethod(p.getCdr());
+            }
+            else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
+            {
+                multiplyIntegerMethod(p.getCdr());
+            }
         }
         else if(operation.equals("/"))
         {
-
+            if(((Token)p.getCar()).getType().equals("Number"))
+            {
+                divideNumberMethod(p.getCdr());
+            }
+            else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
+            {
+                divideIntegerMethod(p.getCdr());
+            }
         }
         else if(operation.equals("^"))
         {
-
+            if(((Token)p.getCar()).getType().equals("Number"))
+            {
+                powNumberMethod(p.getCdr());
+            }
+            else if(((Token)p.getCar()).getType().equals("Unsigned Int"))
+            {
+                powIntegerMethod(p.getCdr());
+            }
         }
         else if(operation.equals("=")) //Not Assignment, its a TEST
         {
-
+            testEqualSymbol(p.getCdr());
         }
         else if(operation.equals("cons"))
         {
-
+            cons(p.getCdr());
         }
         else if(operation.equals("list"))
         {
@@ -46,35 +81,35 @@ public class Executor
         }
         else if(operation.equals("null?"))
         {
-
+            testNull(p.getCdr());
         }
         else if(operation.equals("char?"))
         {
-
+            testChar(p.getCdr());
         }
         else if(operation.equals("integer?"))
         {
-
+            testInteger(p.getCdr());
         }
         else if(operation.equals("string?"))
         {
-
+            testString(p.getCdr());
         }
         else if(operation.equals("number?"))
         {
-
+            testDouble(p.getCdr());
         }
         else if(operation.equals("boolean?"))
         {
-
+            testBoolean(p.getCdr());
         }
         else if(operation.equals("symbol?"))
         {
-
+            testSymbol(p.getCdr());
         }
         else if(operation.equals("list?"))
         {
-
+            isList(p.getCdr());
         }
         else if(operation.equals("equals?"))
         {
@@ -82,15 +117,15 @@ public class Executor
         }
         else if(operation.equals("pair?"))
         {
-
+            testPair(p.getCdr());
         }
         else if(operation.equals("and"))
         {
-
+            andMethod(p.getCdr());
         }
         else if(operation.equals("or"))
         {
-
+            orMethod(p.getCdr());
         }
 		return p;
 	}
@@ -199,12 +234,12 @@ public class Executor
 			return false;
 	}
 	
-	public boolean testFloat(Pair p){
+	public boolean testDouble(Pair p){
         if(p == null)
         {
             return false;
         }
-		if(Float.parseFloat(((Token)((Atom)p.getCdr())).getValue()) % (float)1.0 != (float)0.0){
+		if(Double.parseDouble(((Token)((Atom)p.getCdr())).getValue()) % (double)1.0 != (double)0.0){
 			return true;
 		}
 		else
