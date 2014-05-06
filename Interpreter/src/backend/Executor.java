@@ -71,6 +71,14 @@ public class Executor
         {
             testEqualSymbol(p.getCdr());
         }
+        else if(operation.equals("car"))
+        {
+            car(p.getCdr());
+        }
+        else if(operation.equals("cdr"))
+        {
+            cdr(p.getCdr());
+        }
         else if(operation.equals("cons"))
         {
             cons(p.getCdr());
