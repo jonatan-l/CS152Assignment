@@ -36,9 +36,36 @@ public class Executor
         return null;
     }
 
-	public Pair cons(Pair p)
+	public String cons(Pair p)
     {
-		return new Pair(p.getCar(),p.getCdr());
+        if(p.getCar() == null)
+        {
+            //Return the final string of the result
+        }
+		else if(p.getCar().isAtom()) //Check if car of a pair is a token
+        {
+            if(((Token)p.getCar()).getValue().charAt(0) == '\'') //Check the definition in the symbol table
+            {
+
+            }
+            else if(((Token)p.getCar()).getValue().charAt(0) != '\"' &&
+                    ((Token)p.getCar()).getValue().charAt(((Token)p.getCar()).getValue().length() - 1) != '\"')
+                    //if that token is naked then check its definition in the symbol table and return that definition
+            {
+
+            }
+            else if(((Token)p.getCar()).getValue().charAt(0) == '\"' &&
+                    ((Token)p.getCar()).getValue().charAt(((Token)p.getCar()).getValue().length() - 1) == '\"')//if that token is in double quotes then treat it as a symbol
+            {
+
+            }
+        }
+        else //If the car of a pair is a pair then pass it back to cons
+        {
+           cons(((Pair)p.getCar()));
+        }
+        cons(p.getCdr()); //Pass in the Cdr of pair
+        return new String(""); //return the string
 	}
 
 	public boolean isList(Pair p)
