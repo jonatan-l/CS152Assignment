@@ -6,8 +6,35 @@ import intermediate.SymbolTable;
 
 public class Executor
 {
+	public Object run(Pair p)
+    {
+        if(p == null){ return null; }
 
-	public Object run(Pair p){
+        String operation = ((Token)p.getCar()).getValue();
+        if(operation.equals("+"))
+        {
+
+        }
+        else if(operation.equals("-"))
+        {
+
+        }
+        else if(operation.equals("*"))
+        {
+
+        }
+        else if(operation.equals("/"))
+        {
+
+        }
+        else if(operation.equals("^"))
+        {
+
+        }
+        else if(operation.equals("cons"))
+        {
+
+        }
 		return p;
 	}
 
@@ -36,11 +63,11 @@ public class Executor
         return null;
     }
 
-	public String cons(Pair p)
+	public Pair cons(Pair p)
     {
         if(p == null)
         {
-            //Return the final string of the result
+            //Return the final Pair of the result
         }
 		else if(p.getCar().isAtom()) //Check if car of a pair is a token
         {
@@ -65,7 +92,7 @@ public class Executor
            cons(((Pair)p.getCar()));
         }
         cons(p.getCdr()); //Pass in the Cdr of pair
-        return new String(""); //return the string
+        return new Pair(); //return the final Pair
 	}
 
 	public boolean isList(Pair p)
