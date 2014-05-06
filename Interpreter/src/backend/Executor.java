@@ -90,7 +90,7 @@ public class Executor //The Class That Runs Scheme Code
         }
         else if(operation.equals("list"))
         {
-
+            makeList(p.getCdr());
         }
         else if(operation.equals("null?"))
         {
