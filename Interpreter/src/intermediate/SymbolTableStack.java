@@ -19,6 +19,6 @@ public class SymbolTableStack
    }
    public void remSymbTable()
    {
-       symbolStack.remove(0);
+       symbolStack.remove(symbolStack.size());
    }
 }
