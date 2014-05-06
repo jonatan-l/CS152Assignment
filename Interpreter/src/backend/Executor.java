@@ -255,7 +255,7 @@ public class Executor
 		else if(p.getCar() != null && p.getCdr() == null){
 			return true;
 		}
-		else if(((Token)p.getCar()).getValue() == ((Token)p.getCdr().getCar()).getValue()){
+		else if(((Token)p.getCar()).getValue().equals(((Token)p.getCdr().getCar()).getValue())){
 			return testEqualSymbol(p.getCdr());
 			
 		}
