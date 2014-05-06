@@ -22,6 +22,7 @@ public class Executor //The Class That Runs Scheme Code
         {
             if(((Token)p.getCar()).getType().equals("Number"))
             {
+                new SymbolTable()
                 symbolStack.add();
                 addNumberMethod(p.getCdr());
             }

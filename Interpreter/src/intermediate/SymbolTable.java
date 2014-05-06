@@ -12,6 +12,11 @@ public class SymbolTable {
         map = new TreeMap<String, Atom>();
         parseTreePair = null;
     }
+    public SymbolTable(String key, Atom value)
+    {
+        this();
+        add(key,value);
+    }
     public void setStackPtr(Pair neededPair) //Simply sets the pointer for every SymbolTable back to the root of a token pair.
     {
         parseTreePair = neededPair;
