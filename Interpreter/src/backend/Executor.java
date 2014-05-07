@@ -207,28 +207,39 @@ public class Executor //The Class That Runs Scheme Code
         return new Pair(); //return the final Pair
 	}
 
-    public Pair makeList(Pair p)
-    {
-        String list = "";
-        list = buildList(p, "");
-        list = "(" + list + ")";
-        Token l = new Token(list);
-        Pair lst = new Pair(l);
-        return lst;
-    }
+    public class testMyList {
 
-    public String buildList(Pair p, String s){
+        testMyList(){
 
-        if(p != null && p.getCdr() == null){
-            s = s + ((Token)p.getCar()).getValue();
-            return s;
         }
-        else if(p != null && p.getCdr() != null){
-            s = s + ((Token)p.getCar()).getValue();
-            return buildList(p.getCdr(), s);
+
+        public Pair makeList(Pair p){
+
+            String list = "";
+            list = buildList(p, "");
+            list = "(" + list + ")";
+
+            System.out.println(list);
+
+            Token l = new Token(list);
+            Pair lst = new Pair(l);
+            return lst;
+
         }
-        else
-            return s;
+
+        public String buildList(Pair p, String s){
+
+            if(p != null && p.getCdr() == null){
+                s = s + ((Token)p.getCar()).getValue();
+                return s;
+            }
+            else if(p != null && p.getCdr() != null){
+                s = s + ((Token)p.getCar()).getValue();
+                return buildList(p.getCdr(), s);
+            }
+            else
+                return s;
+        }
     }
 
 	public boolean isList(Pair p)
