@@ -26,8 +26,6 @@ public class SymbolTableStack {
    }
 
 	public void newScope(){
-	   SymbolTable scope = new SymbolTable();
-	   symbolStack.add(scope);
-	   top = scope;
+	   symbolStack.add((top = new SymbolTable()));
 	   }
 }
