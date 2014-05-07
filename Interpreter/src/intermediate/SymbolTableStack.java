@@ -8,9 +8,7 @@ public class SymbolTableStack {
 
 	public SymbolTableStack() {
 		symbolStack = new ArrayList<SymbolTable>();
-		SymbolTable Level0 = new SymbolTable();
-		symbolStack.add(Level0);
-		top = Level0;
+		symbolStack.add((top = new SymbolTable()));
 	}
 
 	public void add(SymbolTable newTable) {
