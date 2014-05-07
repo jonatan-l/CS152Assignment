@@ -9,15 +9,15 @@ import intermediate.SymbolTable;
 
 public class SymbolTablePrinter {
 
-    private SymbolTable t;
+	private SymbolTable t;
 
-    public SymbolTablePrinter(SymbolTable table) {
+	public SymbolTablePrinter(SymbolTable table) {
 
-        t = table;
-    }
+		t = table;
+	}
 
-    public void printer() {
+	public void printer() {
 
-        t.entries();
-    }
+		t.entries();
+	}
 }

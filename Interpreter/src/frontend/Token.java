@@ -2,21 +2,21 @@ package frontend;
 
 import intermediate.Atom;
 
-public class Token implements Atom{
-	private String value; 
-	private String type; 
+public class Token implements Atom {
+	private String value;
+	private String type;
 
 	public Token() {
 		value = "";
 		type = "";
 	}
-	
-	public Token(String item){
+
+	public Token(String item) {
 		value = item;
 		type = "";
 	}
-	
-	public boolean isAtom(){
+
+	public boolean isAtom() {
 		return true;
 	}
 
