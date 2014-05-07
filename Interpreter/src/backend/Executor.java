@@ -14,6 +14,34 @@ public class Executor // The Class That Runs Scheme Code
 		symbolStack = new SymbolTableStack();
 	}
 
+	public String run2(Pair s){
+		String thing;
+		Pair p;
+		if(s == null){
+			return "";
+		}
+		if(s.getCar().isAtom()){
+			
+		}
+		else{
+			thing = 
+		}
+		switch (thing){
+			case "+":
+				addIntegerMethod((Pair) s);
+				break;
+			case "-":
+				subtractIntegerMethod((Pair) s);
+				break;
+			case "
+				
+			default:
+				return thing;
+		}
+		
+		
+	}
+
 	public Object run(Pair p) {
 		if (p == null) {
 			return null;
@@ -140,20 +168,8 @@ public class Executor // The Class That Runs Scheme Code
 
 			} else if (((Token) p.getCar()).getValue().charAt(0) == '\"'
 					&& ((Token) p.getCar()).getValue().charAt(
-							((Token) p.getCar()).getValue().length() - 1) == '\"')// if
-																					// that
-																					// token
-																					// is
-																					// in
-																					// double
-																					// quotes
-																					// then
-																					// treat
-																					// it
-																					// as
-																					// a
-																					// symbol
-			{
+							((Token) p.getCar()).getValue().length() - 1) == '\"') {
+				// if that token is in double quotes then treat it as a symbol
 
 			}
 		} else // If the car of a pair is a pair then pass it back to cons
