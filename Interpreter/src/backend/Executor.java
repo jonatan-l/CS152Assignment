@@ -59,7 +59,7 @@ public class Executor // The Class That Runs Scheme Code
 		{
 			testEqualSymbol(p.getCdr());
 		} else if (operation.equals("lambda")) {
-			// lambdaMethod(p.getCdr());
+			lambdaMethod(p.getCdr());
 		} else if (operation.equals("car")) {
 			car(p.getCdr());
 		} else if (operation.equals("cdr")) {
@@ -454,6 +454,11 @@ public class Executor // The Class That Runs Scheme Code
 			return orMethod(p.getCdr());
 		}
 		return false;
+	}
+
+	public String lambdaMethod(Pair p) {
+		
+
 	}
 
 }

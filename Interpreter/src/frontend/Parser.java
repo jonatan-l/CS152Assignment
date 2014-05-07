@@ -244,7 +244,7 @@ public class Parser {
      */
     public void populateParseTree() {
         int counter = 0;
-        String key;
+        String key = "Parse Tree \n";
         while (in.hasNextLine()) {
             String line = in.nextLine();
             line = line.replaceAll("\\(", " \\( ");
@@ -288,7 +288,7 @@ public class Parser {
                     }
                     else if(counter == 2){
                     	key = item;
-                    	counter == 1;
+                    	counter = 1;
                     }
                 }
             }

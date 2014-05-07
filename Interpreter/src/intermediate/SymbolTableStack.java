@@ -23,12 +23,12 @@ public class SymbolTableStack {
 
 	public void remSymbTable()
    {
-	   top = symbolStack.get()
-       symbolStack.remove(symbolStack.size());
+       symbolStack.remove(symbolStack.size() - 1);
+       top = symbolStack.get(symbolStack.size() - 1);
    }
 
 	public void newScope(){
-	   SymbolTable scope = new SymbolTable()
+	   SymbolTable scope = new SymbolTable();
 	   symbolStack.add(scope);
 	   top = scope;
 	   }
