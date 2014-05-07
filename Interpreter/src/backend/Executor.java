@@ -15,74 +15,6 @@ public class Executor // The Class That Runs Scheme Code
 		symbolStack = new SymbolTableStack();
 	}
 
-	public String run2(Pair s){
-		String thing;
-		Pair p;
-		if(s == null){//end of parenth so, end list
-			return "";
-		}
-		if(!s.getCar().isAtom()){//is token
-			return run2((Pair) s.getCar()) + run2(s.getCdr());
-		}
-		else{
-			thing = ((Token)s.getCar()).getValue();
-		}
-		switch (thing){
-			case "+":
-				return ""+addNumberMethod(s.getCdr());
-			case "-":
-				return ""+subNumberMethod(s.getCdr());
-
-			case "*":
-				return "" + multiplyNumberMethod(s.getCdr());
-			case "/":
-				return "" + divideNumberMethod(s.getCdr());
-			case "null?":
-				
-			case "and":
-				if(andMethod(s)){
-					return "#t";
-				}
-				return "#f";
-			case "or":
-				if(orMethod(s)){
-					return "#t";
-				}
-				return "#f";
-			case "cond":
-				
-				
-			case "else":
-				
-			case "equal?":
-				
-			case "car":
-				
-			case "cdr":
-			
-			case "cons":
-				
-			case "append":
-				
-			case "cddr":
-				
-			case "list":
-				
-			case "let":
-			
-			case "let*":
-			
-			case "if":
-				
-				
-				
-			default:
-				return thing;//get symbol value
-		}
-		
-		
-	}
-
 	public Object run(Pair p) {
 		if (p == null) {
 			return null;
@@ -523,11 +455,5 @@ public class Executor // The Class That Runs Scheme Code
 		}
 		return false;
 	}
-	
-	public String condMethod(Pair p){
-		if(p == null){
-			return "";
-		}
-		Pair 
-	}
+
 }
