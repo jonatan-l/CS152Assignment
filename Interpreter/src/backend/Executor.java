@@ -15,7 +15,7 @@ public class Executor // The Class That Runs Scheme Code
 		symbolStack = new SymbolTableStack();
 	}
 
-	public Object run(Pair p) {
+	public Object run(Pair p) { //Supposed to Only evaluate the parameters or execute function code details
 		if (p == null) {
 			return null;
 		}
