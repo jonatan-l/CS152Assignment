@@ -9,9 +9,16 @@ public class SchemeFunction
     {
         funcRoot = newFuncRoot;
     }
-    private void EvaluateParameters()
+    private void EvaluateParameters() //Sets un this Function's SymbolTable
     {
+        if(funcRoot == null)
+        {
+            return;
+        }
+        else if(((Token)funcRoot.getCar()).getValue().equals("lambda"))
+        {
 
+        }
     }
     Object ExecuteFunction(Pair funcRoot)
     {
