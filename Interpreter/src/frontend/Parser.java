@@ -244,7 +244,7 @@ public class Parser {
      */
     public void populateParseTree() {
         int counter = 0;
-        String key = "Parse Tree \n";
+        String key = "";
         while (in.hasNextLine()) {
             String line = in.nextLine();
             line = line.replaceAll("\\(", " \\( ");
@@ -276,19 +276,20 @@ public class Parser {
                     }
                     Token piece = new Token(item);
                     identify(piece);// add type to token
-                    Pair test = tree.add(piece);// add token to parsetree
+                    Pair test = tree.add(piece);// add token to parse tree
                     if(piece.equals("define"))
                     {
+                        counter = 1;
+                    }
+                    else if(counter == 1) //saves the key
+                    {
+                        key = piece.getValue();
                         counter = 2;
                     }
-                    else if(counter == 1)
+                    else if(counter == 2)
                     {
-                        map.add(key,test);
-                        counter = 0;
-                    }
-                    else if(counter == 2){
-                    	key = item;
-                    	counter = 1;
+                        map.add(key,new Pair(piece)); // Here an atom is set to be a pair
+                    	counter = 0;
                     }
                 }
             }
