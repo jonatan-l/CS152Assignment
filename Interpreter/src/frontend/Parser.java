@@ -286,11 +286,12 @@ public class Parser {
                         key = piece.getValue();
                         counter = 2;
                     }
-                    else if(counter == 2)
+                    else if(counter == 2) //This ensures the Symbol Table will have a key, value pair
                     {
                         map.add(key,new Pair(piece)); // Here an atom is set to be a pair
                     	counter = 0;
-                    }
+                    } //At the end here, the symbol table will have captured any (define Key Value)
+                    //Key can be (foo n) and Value can be (+ n 1) or (define a 3) or (define 'a 3)
                 }
             }
         }

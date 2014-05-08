@@ -24,7 +24,7 @@ public class Executor // The Class That Runs Scheme Code
 
 		if (operation.equals("+")) {
 			symbolStack.add(new SymbolTable(((Token) p.getCar()).getValue(), p
-					.getCdr()));
+					.getCdr())); //<------------------------*********************
 
 			if (((Token) p.getCar()).getType().equals("Number")) {
 				addNumberMethod(p.getCdr());
@@ -67,7 +67,7 @@ public class Executor // The Class That Runs Scheme Code
 		} else if (operation.equals("cons")) {
 			cons(p.getCdr());
 		} else if (operation.equals("list")) {
-			makeList(p.getCdr());
+			//-------------------------------------------------makeList(p.getCdr());
 		} else if (operation.equals("null?")) {
 			testNull(p.getCdr());
 		} else if (operation.equals("char?")) {
@@ -153,7 +153,7 @@ public class Executor // The Class That Runs Scheme Code
 		return new Pair(); // return the final Pair
 	}
 
-	public Pair makeList(Pair p) {
+	/*public Pair makeList(Pair p) {
 		String list = "";
 		list = buildList(p, "");
 		list = "(" + list + ")";
@@ -172,7 +172,7 @@ public class Executor // The Class That Runs Scheme Code
 			return buildList(p.getCdr(), s);
 		} else
 			return s;
-	}
+	}*/
 
 	public boolean isList(Pair p) {
 		if (p == null) {
@@ -456,9 +456,8 @@ public class Executor // The Class That Runs Scheme Code
 		return false;
 	}
 
-	public String lambdaMethod(Pair p) {
-		
-
+	public SchemeFunction lambdaMethod(Pair p) //
+    {
+        return new SchemeFunction(((Token)p.getCar()).getValue(),p.getCdr());
 	}
-
 }
